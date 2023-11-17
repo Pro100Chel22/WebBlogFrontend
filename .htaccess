@@ -1,0 +1,5 @@
+RewriteEngine On
+
+# Проверяем, не находимся ли мы уже на /
+RewriteCond %{REQUEST_URI} ^/([0-9]+)$
+RewriteRule (.*) /index.html [L]
