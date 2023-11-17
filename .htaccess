@@ -1,5 +1,11 @@
-RewriteEngine On
+<IfModule mod_rewrite.c>
+  RewriteEngine On
 
-# Проверяем, не находимся ли мы уже на /
-RewriteCond %{REQUEST_URI} ^/([0-9]+)$
-RewriteRule (.*) /index.html [L]
+  RewriteBase /
+  RewriteCond %{REQUEST_URI} !=/index.html
+  #RewriteCond %{REQUEST_URI} !\.(css|js)$
+  RewriteCond %{REQUEST_URI} !^/css/.*\.css$
+  RewriteCond %{REQUEST_URI} !^/js/.*\.js$
+  RewriteCond %{REQUEST_URI} !^/modules/.*\.html$
+  RewriteRule ^(.*)$ /index.html [L]
+</IfModule>
