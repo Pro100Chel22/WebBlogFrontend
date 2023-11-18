@@ -2,8 +2,8 @@ export { Router }
 
 let Router = {
     routes: {
-        "/login": "/modules/login.html",
-        "/registration": "/modules/registration.html"
+        "/login": "login.html",
+        "/registration": "registration.html"
     },
 
     init: function() {

@@ -21,3 +21,11 @@ main {
 .maxWidth500 {
     max-width: 500px;
 }
+
+.customCursor {
+    cursor: pointer;
+}
+
+.navbarPlaceholder {
+    width: 150px;
+}
