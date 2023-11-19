@@ -1,0 +1,58 @@
+<div class="container my-3">
+    <div class="shadow-lg rounded-3 p-3">
+        <form class="placeholder-glow">
+            <div class="row mb-3">
+                <label for="email_input_id" class="col-lg-2 col-form-label">Email</label>
+                <div class="col-lg-10 placeholderable d-none">
+                    <input type="email" class="form-control" id="email_input_id" aria-describedby="emailHelp" >
+                </div>
+                <div class="col-lg-10 placeholderBody">
+                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="name_input_id" class="col-lg-2 col-form-label">ФИО</label>
+                <div class="col-lg-10 placeholderable d-none">
+                    <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id">
+                </div>
+                <div class="col-lg-10 placeholderBody">
+                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="phone_input_id" class="col-lg-2 col-form-label">Телефон</label>
+                <div class="col-lg-10 placeholderable d-none">
+                    <input type="tel" id="phone_input_id" class="form-control" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" placeholder="+7 (xxx) xxx-xx-xx">
+                </div>
+                <div class="col-lg-10 placeholderBody">
+                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                </div>
+            </div>  
+            <div class="row mb-3">
+                <label for="gender_select_id" class="col-lg-2 col-form-label">Пол</label>
+                <div class="col-lg-10 placeholderable d-none">
+                    <select id="gender_select_id" class="form-select">
+                        <option>Мужской</option>
+                        <option>Женский</option>
+                    </select>
+                </div>
+                <div class="col-lg-10 placeholderBody">
+                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                </div>
+            </div>
+            <div class="row mb-3">
+                <label for="birthd_input_id" class="col-lg-2 col-form-label">Дата рождения</label>
+                <div class="col-lg-10 placeholderable d-none">
+                    <input type="date" class="form-control" id="birthd_input_id">
+                </div>
+                <div class="col-lg-10 placeholderBody">
+                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                </div>
+            </div>
+            <div class="rightButton">
+                <button type="button" class="btn btn-primary" id="save_button_id" disabled>Сохранть</button>
+            </div>
+          </form>
+    </div>
+</div>
+<script type="module" src="/js/profile.js"></script>

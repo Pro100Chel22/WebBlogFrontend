@@ -29,3 +29,15 @@ main {
 .navbarPlaceholder {
     width: 150px;
 }
+
+.placeholderColor {
+    color: rgb(167, 167, 167);
+}
+
+.inputPlaceholder {
+    height: 38px;
+}
+
+.rightButton {
+    text-align: right;
+}
