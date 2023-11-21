@@ -8,7 +8,7 @@ window.myApp.listInitFuncs = window.myApp.listInitFuncs || {};
 function includeHTML(file) {
     var xhr = new XMLHttpRequest();
 
-    xhr.open('GET', "modules/" + file, true);
+    xhr.open('GET', "/modules/" + file, true);
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {

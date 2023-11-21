@@ -13,7 +13,7 @@
             </div>
             <div class="mb-2 col-md-12">
                 <label for="birthd_input_id" class="form-label" min="01-01-1900" max="31-12-2023">Дата рождения</label>
-                <input type="date" class="form-control" id="birthd_input_id">
+                <input type="text" class="form-control" id="birthd_input_id">
                 <div class="invalid-feedback">
                     Некорректная дата рожденя.
                 </div>
@@ -48,7 +48,7 @@
             </div>
             <div class="mb-2 col-md-12">
                 <label for="password_input_id" class="form-label">Пароль<span class="text-danger ms-1">*</span></label>
-                <input type="password" pattern="^(?=.*\d).{6,}$" class="form-control" id="password_input_id" required>
+                <input type="password" pattern="^(?=.*\d).{6,}$" class="form-control" autocomplete="on" id="password_input_id" required>
                 <div class="invalid-feedback">
                     Пароль должен содержать не менее 6 символов и хотя бы одну цифру.
                 </div>
@@ -60,7 +60,6 @@
     </div>
 </div>
 <script type="module" src="/js/registration.js"></script>
-<script src="/js/validatePhone.js"></script>
 
 <!-- <form class="row needs-validation" novalidate>
     <div class="mb-2 col-md-12">

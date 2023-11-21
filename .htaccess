@@ -1,11 +1,16 @@
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
+  RewriteCond ${REQUEST_FILENAME} !-f
+  RewriteCond ${REQUEST_FILENAME} !-d
+
   RewriteBase /
   RewriteCond %{REQUEST_URI} !=/index.html
   #RewriteCond %{REQUEST_URI} !\.(css|js)$
   RewriteCond %{REQUEST_URI} !^/css/.*\.css$
   RewriteCond %{REQUEST_URI} !^/js/.*\.js$
   RewriteCond %{REQUEST_URI} !^/modules/.*\.html$
+  RewriteCond %{REQUEST_URI} !^/node_modules/imask/.*\.js$
+  RewriteCond %{REQUEST_URI} !^/node_modules/.*$
   RewriteRule ^(.*)$ /index.html [L]
 </IfModule>

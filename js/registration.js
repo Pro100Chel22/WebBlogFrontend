@@ -1,8 +1,23 @@
 import { loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { userIsAuthorized, userIsNotAuthorized } from './index.js';
 import { request } from './tools/request.js';
+import IMask from '../node_modules/imask/esm/index.js';
+//import 'air-datepicker';
+//import AirDatepicker from 'air-datepicker'
+import AirDatepicker from '../node_modules/air-datepicker/index.es.js';
+//import '../node_modules/air-datepicker/air-datepicker.css';
 
 function init() {
+    new IMask(document.getElementById('phone_input_id'), {
+        mask: "+{7} (000) 000-00-00"
+    });
+
+    // $('#birthd_input_id').datepicker({
+    //     // настройки
+    //   });
+
+    //new AirDatepicker('#birthd_input_id');
+
     const formsId = ['#name_input_id', '#birthd_input_id', '#phone_input_id', '#gender_input_id', '#email_input_id', '#password_input_id'];
 
     Array.from(formsId).forEach(inputs => {
