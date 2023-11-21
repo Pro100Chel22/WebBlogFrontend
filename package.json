@@ -1,6 +1,5 @@
 {
   "dependencies": {
-    "air-datepicker": "^3.4.0",
     "imask": "^7.1.3"
   }
 }

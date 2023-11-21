@@ -1,6 +1,6 @@
 <div class="container d-flex align-items-center justify-content-center h-100 maxWidth500">
     <div class="shadow-lg rounded-3 p-3 my-3">
-        <form class="row needs-validation">
+        <form class="row needs-validation" id="registration_form_id">
             <div class="mb-2 col-md-12">
                 <h2>Регистрация</h2>
             </div>
@@ -12,10 +12,13 @@
                 </div>
             </div>
             <div class="mb-2 col-md-12">
-                <label for="birthd_input_id" class="form-label" min="01-01-1900" max="31-12-2023">Дата рождения</label>
-                <input type="text" class="form-control" id="birthd_input_id">
-                <div class="invalid-feedback">
+                <label for="birthd_input_id" class="form-label">Дата рождения</label>
+                <input type="date" class="form-control" id="birthd_input_id">
+                <div class="invalid-feedback" id="birthd_incorrect_id">
                     Некорректная дата рожденя.
+                </div>
+                <div class="invalid-feedback d-none" id="birthd_nonexistent_id">
+                    Дата рождения не может быть позже, чем текущий день.
                 </div>
                 <div class="valid-feedback">
                     Дату рождения указывать необязательно.
@@ -42,8 +45,11 @@
                 <label for="email_input_id" class="form-label">Email<span class="text-danger ms-1">*</span></label>
                 <input type="email" class="form-control" id="email_input_id" aria-describedby="emailHelp" required>
                 <div id="emailHelp" class="form-text">Email будет использоваться для входа в систему</div>
-                <div class="invalid-feedback">
+                <div class="invalid-feedback" id="email_incorrect_id">
                     Некорректный адрес электронной почты.
+                </div>
+                <div class="invalid-feedback d-none" id="email_exist_id">
+                    Данный адрес электронной почты уже использоваться.
                 </div>
             </div>
             <div class="mb-2 col-md-12">
