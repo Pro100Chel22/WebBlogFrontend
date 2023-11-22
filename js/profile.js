@@ -1,48 +1,17 @@
 import { loadPageFromCurrentUrl, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { userIsNotAuthorized } from './index.js';
 import { request } from './tools/request.js';
-import { dateConvertToUTCWithSmooth } from './tools/helpers.js';
-import IMask from '../node_modules/imask/esm/index.js';
+import { dateConvertToUTCWithSmooth, disableForm, undisableForm, validatedDate, onFocusValidate, validate, activateExistEmailError, diactivateExistEmailError, phoneMask, changeDateFormat } from './tools/helpers.js';
 
 function init() {
-    let mask = new IMask(document.getElementById('phone_input_id'), {
-        mask: "+{7} (000) 000-00-00"
-    });
-
     const formsId = ['#name_input_id', '#birthd_input_id', '#phone_input_id', '#gender_input_id', '#email_input_id'];
+    onFocusValidate(formsId);
 
-    Array.from(formsId).forEach(inputs => {
-        $(inputs).on('focus', function() {
-            let parent = $(this).parent();
-            parent.addClass('was-validated');
-        });
-    });
-
-    $('#birthd_input_id').on('input', function() {
-        const userDate = new Date($('#birthd_input_id').val());
-        const minDate = new Date('01.01.1901');
-        const maxDate = new Date();
-
-        if (userDate > maxDate) {
-            const formattedCurrentDate = `${maxDate.getFullYear()}-${String(maxDate.getMonth() + 1).padStart(2, '0')}-${String(maxDate.getDate()).padStart(2, '0')}`;
-
-            $('#birthd_input_id').val(formattedCurrentDate);
-            
-        } else if (userDate < minDate) {
-            $('#birthd_input_id').val('1901-01-01');
-        }
-    });
-
+    $('#birthd_input_id').on('input', () => validatedDate($('#birthd_input_id')));
     $('#email_input_id').on('focus', () => diactivateExistEmailError());
+    let mask = phoneMask(document.getElementById('phone_input_id'));
 
-    let userModel = window.myApp.userModel;
-    const date = new Date(userModel?.birthDate);
-    const formattedCurrentDate = (userModel.birthDate ? `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}` : "");
-    $('#email_input_id').val(userModel.email);
-    $('#name_input_id').val(userModel.fullName);
-    $('#phone_input_id').val(userModel?.phoneNumber ?? "");
-    $('#gender_input_id').val(userModel.gender);
-    $('#birthd_input_id').val(formattedCurrentDate);
+    putDataToForm();
     mask.updateValue();
 
     const forms = document.querySelectorAll('.needs-validation');
@@ -51,12 +20,9 @@ function init() {
             event.preventDefault();
 
             $('#server_error_mess_id').addClass('d-none');
-            disableForm();
+            disableForm('profile_form_id', 'save_button_id');
 
-            Array.from(formsId).forEach(inputs => {
-                $(inputs).parent().addClass('was-validated');
-                $(inputs).removeClass('is-invalid');
-            });
+            validate(formsId);
 
             const body = {
                 "email": $('#email_input_id').val(),
@@ -76,17 +42,11 @@ function init() {
 function saveProfile (data) {
     console.log(data);
     if (data.status === 200) {
-        let userModel = window.myApp.userModel;
-
-        userModel.email = $('#email_input_id').val();
-        userModel.fullName = $('#name_input_id').val();
-        userModel.phoneNumber = $('#phone_input_id').val();
-        userModel.gender = $('#gender_input_id').val();
-        userModel.birthDate = $('#birthd_input_id').val();
+        saveDataToApp();
     }
     else if (data.status === 400) {
-        if (data.body?.errors.Email ?? false) {
-            console.log(data.body.DuplicateUserName);
+        if (data.body?.errors?.Email ?? false) {
+            console.log(ddata.body.errors.Email);
 
             let parent = $('#email_input_id').parent();
             parent.removeClass('was-validated');
@@ -103,33 +63,27 @@ function saveProfile (data) {
         $('#server_error_mess_id').removeClass('d-none'); 
     }
 
-    undisableForm();
+    undisableForm('profile_form_id', 'save_button_id');
 }
 
-function activateExistEmailError() {
-    $('#email_input_id').addClass('is-invalid');
-    $('#email_incorrect_id').addClass('d-none');
-    $('#email_exist_id').removeClass('d-none'); 
+function putDataToForm () {
+    let userModel = window.myApp.userModel;
+    const formattedCurrentDate = (userModel.birthDate ? changeDateFormat(new Date(userModel.birthDate)) : "");
+    $('#email_input_id').val(userModel.email);
+    $('#name_input_id').val(userModel.fullName);
+    $('#phone_input_id').val(userModel?.phoneNumber ?? "");
+    $('#gender_input_id').val(userModel.gender);
+    $('#birthd_input_id').val(formattedCurrentDate);
 }
 
-function diactivateExistEmailError() {
-    $('#email_input_id').removeClass('is-invalid');
-    $('#email_incorrect_id').removeClass('d-none');
-    $('#email_exist_id').addClass('d-none');
-}
+function saveDataToApp () {
+    let userModel = window.myApp.userModel;
 
-function disableForm() {
-    $('#profile_form_id :input').prop('disabled', true);
-
-    $('#save_button_id').addClass('d-none');
-    $('#placholder_buttom_id').removeClass('d-none');
-}
-
-function undisableForm() {
-    $('#profile_form_id :input').prop('disabled', false);
-
-    $('#save_button_id').removeClass('d-none');
-    $('#placholder_buttom_id').addClass('d-none');
+    userModel.email = $('#email_input_id').val();
+    userModel.fullName = $('#name_input_id').val();
+    userModel.phoneNumber = $('#phone_input_id').val();
+    userModel.gender = $('#gender_input_id').val();
+    userModel.birthDate = $('#birthd_input_id').val();
 }
 
 saveInitFuncAndRun(init);
