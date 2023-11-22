@@ -57,13 +57,13 @@ function init() {
                 "phoneNumber": $('#phone_input_id').val().length !== 0 ? $('#phone_input_id').val() : null
             }
 
-            request('https://blog.kreosoft.space/api/account/register', 'POST', login, body);
+            request('https://blog.kreosoft.space/api/account/register', 'POST', registration, body);
             
         }, false)
     });
 }
 
-function login (data) {
+function registration (data) {
     console.log(data);
     if (data.status === 200) {
         localStorage.setItem('JWTToken', data.body.token);

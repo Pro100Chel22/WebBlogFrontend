@@ -7,7 +7,7 @@ window.myApp.listInitFuncs = window.myApp.listInitFuncs || {};
 
 function includeHTML(file) {
     var xhr = new XMLHttpRequest();
-
+    
     xhr.open('GET', "/modules/" + file, true);
 
     xhr.onreadystatechange = function() {
@@ -28,8 +28,13 @@ function includeHTML(file) {
     xhr.send();
 }
 
-function loadPageWithoutReload(file) {
-    window.history.pushState({}, "", file);
+function loadPageWithoutReload(file, usePush = true) {
+    if (usePush) {
+        window.history.pushState({}, "", file);
+    }
+    else {
+        window.history.replaceState({}, "", "/");
+    }
 
     let route = Router.findFilePath(file);
     loadPageContent(route);
@@ -42,11 +47,14 @@ function loadPageFromCurrentUrl() {
 
 function loadPageContent(route) {
     if (route) {
-        if (route.beforeLoad) {
-            route.beforeLoad();
-        }
+        let requirement = route.tokenVerificationResultRequired;
 
-        includeHTML(route.filePath);
+        if (requirement !== null && window.myApp.tokenVerificationResult !== requirement) {
+            loadPageWithoutReload("/", false);
+        }
+        else {
+            includeHTML(route.filePath);
+        }
     } 
     else {
         includeHTML("error.html");

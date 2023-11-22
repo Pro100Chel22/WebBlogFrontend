@@ -6,9 +6,9 @@
             </div>
             <div class="mb-2 col-md-12">
                 <label for="name_input_id" class="form-label">ФИО<span class="text-danger ms-1">*</span></label>
-                <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id" required>
+                <input type="text" pattern="^(?:[а-яА-ЯёЁ]+\s*){3,}$" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id" required>
                 <div class="invalid-feedback">
-                    Имя должно иметь длину не менее 3-х символов.
+                    Имя должно иметь длину не менее 3-х символов и состоять из кириллических символов.
                 </div>
             </div>
             <div class="mb-2 col-md-12">
@@ -26,7 +26,7 @@
             </div>
             <div class="mb-2 col-md-12">
                 <label for="phone_input_id" class="form-label">Телефон</label>
-                <input type="tel" id="phone_input_id" class="form-control" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" placeholder="+7 (xxx) xxx-xx-xx">
+                <input type="tel" id="phone_input_id" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" class="form-control" placeholder="+7 (xxx) xxx-xx-xx">
                 <div class="invalid-feedback">
                     Некорректный номер телфона.
                 </div>
@@ -75,53 +75,3 @@
     </div>
 </div>
 <script type="module" src="/js/registration.js"></script>
-
-<!-- <form class="row needs-validation" novalidate>
-    <div class="mb-2 col-md-12">
-        <h2>Регистрация</h2>
-    </div>
-    <div class="mb-2 col-md-12 ">
-        <label for="name_input_id" class="form-label">ФИО<span class="text-danger ms-1">*</span></label>
-        <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id" required>
-        <div class="invalid-feedback">
-            Пожалуйста, введите имя пользователя.
-        </div>
-    </div>
-    <div class="mb-2 col-md-12">
-        <label for="birthd_input_id" class="form-label">Дата рождения</label>
-        <input type="date" class="form-control" id="birthd_input_id">
-    </div>
-    <div class="mb-2 col-md-12">
-        <label for="phone_input_id" class="form-label">Телефон</label>
-        <input type="tel" id="phone_input_id" class="form-control" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" placeholder="+7 (xxx) xxx-xx-xx">
-        <div class="invalid-feedback">
-            Некорректный номер телфона.
-        </div>
-    </div>
-    <div class="mb-2 col-md-12">
-        <label for="gender_input_id" class="form-label">Пол<span class="text-danger ms-1">*</span></label>
-        <select id="gender_input_id" class="form-select" required>
-            <option>Мужской</option>
-            <option>Женский</option>
-        </select>
-    </div>
-    <div class="mb-2 col-md-12">
-        <label for="email_input_id" class="form-label">Email<span class="text-danger ms-1">*</span></label>
-        <input type="email" class="form-control" id="email_input_id" aria-describedby="emailHelp" required>
-        <div id="emailHelp" class="form-text">Email будет использоваться для входа в систему</div>
-        <div class="invalid-feedback">
-            Некорректный адрес электронной почты.
-        </div>
-    </div>
-
-    <div class="mb-2 col-md-12">
-        <label for="password_input_id" class="form-label">Пароль<span class="text-danger ms-1">*</span></label>
-        <input type="password" class="form-control" pattern="^(?=.*\d).{6,}$" id="password_input_id" required>
-        <div class="invalid-feedback">
-            Пароль должен содержать не менее 6 символов и хотя бы одну цифру.
-        </div>
-    </div>
-    <div class="d-grid gap-2 col-md-12">
-        <button class="btn btn-primary" type="submit">Регистрация</button>
-    </div>
-  </form> -->

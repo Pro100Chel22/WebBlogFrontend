@@ -1,10 +1,11 @@
 export { Router }
 
 let Router = {
-    routes: {
-        "/login": { filePath: "login.html", beforeLoad: () => console.log("redir")},
-        "/registration": { filePath: "registration.html", beforeLoad: null},
-        "/profile": { filePath: "profile.html", beforeLoad: null}
+    // если tokenVerificationResultRequired == false, то на страницу можно попасть только неавторизованным, если true, то только авторизованным, если null, то и так и так 
+    routes: { 
+        "/login": { filePath: "login.html", tokenVerificationResultRequired: false }, 
+        "/registration": { filePath: "registration.html", tokenVerificationResultRequired: false },
+        "/profile": { filePath: "profile.html", tokenVerificationResultRequired: true }
     },
 
     init: function() {
@@ -14,7 +15,7 @@ let Router = {
             this._routes.push({
                 pattern: new RegExp('^' + route.replace(/:\w+/g,'(\\w+)') + '$'),
                 filePath: this.routes[route].filePath,
-                beforeLoad: this.routes[route].beforeLoad
+                tokenVerificationResultRequired: this.routes[route].tokenVerificationResultRequired
             });
         }
     },

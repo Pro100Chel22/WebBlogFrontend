@@ -1,20 +1,39 @@
 <div class="container d-flex align-items-center justify-content-center h-100 maxWidth500">
     <div class="shadow-lg rounded-3 p-3 my-3">
-      <form class="row">
+      <form class="row needs-validation" id="login_form_id">
         <div class="mb-2 col-md-12">
             <h2>Вход</h2>
         </div>
-        <div class="mb-2 col-md-12">
-            <label for="email_input_id" class="form-label">Email</label>
-            <input type="email" class="form-control" id="email_input_id">
+        <div class="mb-2 col-md-12 ">
+            <label for="email_input_id" class="form-label">Email<span class="text-danger ms-1">*</span></label>
+            <input type="email" class="form-control" id="email_input_id" required>
+            <div class="invalid-feedback" id="email_incorrect_id">
+                Некорректный адрес электронной почты.
+            </div>
         </div>
         <div class="mb-2 col-md-12">
-            <label for="password_input_id" class="form-label">Пароль</label>
-            <input type="password" class="form-control" autocomplete="on" id="password_input_id">
+            <label for="password_input_id" class="form-label">Пароль<span class="text-danger ms-1">*</span></label>
+            <input type="password" class="form-control" autocomplete="on" id="password_input_id" required>
         </div>
         <div class="d-grid gap-2 col-md-12">
-            <button class="btn btn-primary" type="button" id="login_button_id">Войти</button>
+            <button class="btn btn-primary" type="submit" id="login_button_id">Войти</button>
+            <button class="btn btn-primary d-none" type="button" id="placholder_buttom_id">
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Отправка формы</span>
+            </button>
+        </div>
+        <div class="col-md-12 d-none" id="login_failed_id">
+            <div class="invalid-feedback d-block">
+                Неверный логи или пароль.
+            </div>
+        </div>
+        <div class="mt-2 d-grid gap-2 col-md-12">
             <button class="btn btn-secondary" type="button" id="registration_page_button_id">Регистрация</button>
+        </div>
+        <div class="mb-2 col-md-12 d-none" id="server_error_mess_id">
+            <div class="invalid-feedback d-block">
+                При отправке формы произошла ошибка, повторите попытку позже.
+            </div>
         </div>
       </form>
     </div>
