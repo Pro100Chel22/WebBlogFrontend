@@ -1,6 +1,7 @@
-import { loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
+import { loadPageFromCurrentUrl, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { userIsAuthorized, userIsNotAuthorized } from './index.js';
 import { request } from './tools/request.js';
+import { dateConvertToUTCWithSmooth } from './tools/helpers.js';
 import IMask from '../node_modules/imask/esm/index.js';
 
 function init() {
@@ -38,7 +39,7 @@ function init() {
     Array.from(forms).forEach(form => {
         form.addEventListener('submit', event => {
             event.preventDefault();
-            event.stopPropagation();
+            //event.stopPropagation();
 
             $('#server_error_mess_id').addClass('d-none');
             disableForm();
@@ -69,7 +70,7 @@ function registration (data) {
         localStorage.setItem('JWTToken', data.body.token);
         userIsAuthorized($('#email_input_id').val());
 
-        loadPageWithoutReload("/");
+        loadPageFromCurrentUrl();
         return;
     }
     else if (data.status === 400) {
@@ -114,15 +115,6 @@ function undisableForm() {
 
     $('#registration_buttom_id').removeClass('d-none');
     $('#placholder_buttom_id').addClass('d-none');
-}
-
-function dateConvertToUTCWithSmooth(dateStr, dH = 0, dM = 0, dS = 0) {
-    const date = new Date(dateStr);
-
-    const currentDate = new Date(); 
-    date.setHours(currentDate.getHours() - dH, currentDate.getMinutes() - dM, currentDate.getSeconds() - dS);
-
-    return date.toISOString();
 }
 
 saveInitFuncAndRun(init);

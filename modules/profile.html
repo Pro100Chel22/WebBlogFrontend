@@ -1,58 +1,78 @@
 <div class="container my-3">
-    <div class="shadow-lg rounded-3 p-3">
-        <form class="placeholder-glow">
-            <div class="row mb-3">
-                <label for="email_input_id" class="col-lg-2 col-form-label">Email</label>
-                <div class="col-lg-10 placeholderable d-none">
-                    <input type="email" class="form-control" id="email_input_id" aria-describedby="emailHelp" >
+    <div class="row justify-content-center">
+        <div class="col-12 col-md-8 shadow-lg rounded-3 p-3">
+            <form class="needs-validation" id="profile_form_id">
+                <div class="row mb-3">
+                    <label for="email_input_id" class="col-lg-3 col-form-label">Email<span class="text-danger ms-1">*</span></label>
+                    <div class="col-lg-9">
+                        <input type="email" class="form-control" id="email_input_id" required>
+                        <div class="invalid-feedback" id="email_incorrect_id">
+                            Некорректный адрес электронной почты.
+                        </div>
+                        <div class="invalid-feedback d-none" id="email_exist_id">
+                            Данный адрес электронной почты уже использоваться.
+                        </div>
+                    </div>
                 </div>
-                <div class="col-lg-10 placeholderBody">
-                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                <div class="row mb-3">
+                    <label for="name_input_id" class="col-lg-3 col-form-label">ФИО<span class="text-danger ms-1">*</span></label>
+                    <div class="col-lg-9">
+                        <input type="text" pattern="^(?:[а-яА-ЯёЁ]+\s*){3,}$" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id" required>
+                        <div class="invalid-feedback">
+                            Имя должно иметь длину не менее 3-х символов и состоять из кириллических символов.
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label for="name_input_id" class="col-lg-2 col-form-label">ФИО</label>
-                <div class="col-lg-10 placeholderable d-none">
-                    <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id">
+                <div class="row mb-3">
+                    <label for="phone_input_id" class="col-lg-3 col-form-label">Телефон</label>
+                    <div class="col-lg-9">
+                        <input type="tel" id="phone_input_id" class="form-control" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" placeholder="+7 (xxx) xxx-xx-xx">
+                        <div class="invalid-feedback">
+                            Некорректный номер телфона.
+                        </div>
+                        <div class="valid-feedback">
+                            Номер телефона указывать необязательно.
+                        </div>
+                    </div>
+                </div>  
+                <div class="row mb-3">
+                    <label for="gender_input_id" class="col-lg-3 col-form-label">Пол<span class="text-danger ms-1">*</span></label>
+                    <div class="col-lg-9">
+                        <select id="gender_input_id" class="form-select" required>
+                            <option value="Male">Мужской</option>
+                            <option value="Female">Женский</option>
+                        </select>
+                    </div>
                 </div>
-                <div class="col-lg-10 placeholderBody">
-                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                <div class="row mb-3">
+                    <label for="birthd_input_id" class="col-lg-3 col-form-label">Дата рождения</label>
+                    <div class="col-lg-9">
+                        <input type="date" class="form-control" autocomplete="on" id="birthd_input_id">
+                        <div class="invalid-feedback" id="birthd_incorrect_id">
+                            Некорректная дата рожденя.
+                        </div>
+                        <div class="invalid-feedback d-none" id="birthd_nonexistent_id">
+                            Дата рождения не может быть позже, чем текущий день.
+                        </div>
+                        <div class="valid-feedback">
+                            Дату рождения указывать необязательно.
+                        </div>
+                    </div>
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label for="phone_input_id" class="col-lg-2 col-form-label">Телефон</label>
-                <div class="col-lg-10 placeholderable d-none">
-                    <input type="tel" id="phone_input_id" class="form-control" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" placeholder="+7 (xxx) xxx-xx-xx">
+                <div class="rightButton">
+                    <button type="submit" class="btn btn-primary" id="save_button_id">Сохранть</button>
+                    <button class="btn btn-primary d-none" type="button" id="placholder_buttom_id">
+                        <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                        <span role="status">Сохранение</span>
+                    </button>
                 </div>
-                <div class="col-lg-10 placeholderBody">
-                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
+                <div class="mb-2 col-md-12 d-none" id="server_error_mess_id">
+                    <div class="invalid-feedback text-center d-block">
+                        Во время сохранения произошла ошибка, повторите попытку позже.
+                    </div>
                 </div>
-            </div>  
-            <div class="row mb-3">
-                <label for="gender_select_id" class="col-lg-2 col-form-label">Пол</label>
-                <div class="col-lg-10 placeholderable d-none">
-                    <select id="gender_select_id" class="form-select">
-                        <option>Мужской</option>
-                        <option>Женский</option>
-                    </select>
-                </div>
-                <div class="col-lg-10 placeholderBody">
-                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
-                </div>
-            </div>
-            <div class="row mb-3">
-                <label for="birthd_input_id" class="col-lg-2 col-form-label">Дата рождения</label>
-                <div class="col-lg-10 placeholderable d-none">
-                    <input type="date" class="form-control" autocomplete="on" id="birthd_input_id">
-                </div>
-                <div class="col-lg-10 placeholderBody">
-                    <span class="form-control placeholderColor inputPlaceholder placeholder"></span>
-                </div>
-            </div>
-            <div class="rightButton">
-                <button type="button" class="btn btn-primary" id="save_button_id" disabled>Сохранть</button>
-            </div>
-          </form>
+            </form>
+        </div>
     </div>
 </div>
 <script type="module" src="/js/profile.js"></script>
