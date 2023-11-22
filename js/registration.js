@@ -32,11 +32,7 @@ function init() {
         }
     });
 
-    $('#email_input_id').on('focus', function() {
-        $('#email_input_id').removeClass('is-invalid');
-        $('#email_incorrect_id').removeClass('d-none');
-        $('#email_exist_id').addClass('d-none');
-    });
+    $('#email_input_id').on('focus', () => diactivateExistEmailError());
 
     const forms = document.querySelectorAll('.needs-validation');
     Array.from(forms).forEach(form => {
@@ -44,7 +40,8 @@ function init() {
             event.preventDefault();
             event.stopPropagation();
 
-            $('#registration_form_id :input').prop('disabled', true);
+            $('#server_error_mess_id').addClass('d-none');
+            disableForm();
 
             Array.from(formsId).forEach(inputs => {
                 $(inputs).parent().addClass('was-validated');
@@ -72,7 +69,7 @@ function login (data) {
         localStorage.setItem('JWTToken', data.body.token);
         userIsAuthorized($('#email_input_id').val());
 
-        //loadPageWithoutReload("/");
+        loadPageWithoutReload("/");
         return;
     }
     else if (data.status === 400) {
@@ -82,15 +79,41 @@ function login (data) {
             let parent = $('#email_input_id').parent();
             parent.removeClass('was-validated');
 
-            $('#email_input_id').addClass('is-invalid');
-            $('#email_incorrect_id').addClass('d-none');
-            $('#email_exist_id').removeClass('d-none');
-
-            $('#registration_form_id :input').prop('disabled', false);
-        }
+            activateExistEmailError();
+        }   
+    }
+    else {
+        $('#server_error_mess_id').removeClass('d-none'); 
     }
 
+    undisableForm();
     userIsNotAuthorized();
+}
+
+function activateExistEmailError() {
+    $('#email_input_id').addClass('is-invalid');
+    $('#email_incorrect_id').addClass('d-none');
+    $('#email_exist_id').removeClass('d-none'); 
+}
+
+function diactivateExistEmailError() {
+    $('#email_input_id').removeClass('is-invalid');
+    $('#email_incorrect_id').removeClass('d-none');
+    $('#email_exist_id').addClass('d-none');
+}
+
+function disableForm() {
+    $('#registration_form_id :input').prop('disabled', true);
+
+    $('#registration_buttom_id').addClass('d-none');
+    $('#placholder_buttom_id').removeClass('d-none');
+}
+
+function undisableForm() {
+    $('#registration_form_id :input').prop('disabled', false);
+
+    $('#registration_buttom_id').removeClass('d-none');
+    $('#placholder_buttom_id').addClass('d-none');
 }
 
 function dateConvertToUTCWithSmooth(dateStr, dH = 0, dM = 0, dS = 0) {

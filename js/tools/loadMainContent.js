@@ -42,6 +42,10 @@ function loadPageFromCurrentUrl() {
 
 function loadPageContent(route) {
     if (route) {
+        if (route.beforeLoad) {
+            route.beforeLoad();
+        }
+
         includeHTML(route.filePath);
     } 
     else {

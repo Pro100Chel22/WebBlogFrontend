@@ -8,7 +8,7 @@
                 <label for="name_input_id" class="form-label">ФИО<span class="text-danger ms-1">*</span></label>
                 <input type="text" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id" required>
                 <div class="invalid-feedback">
-                    Имя должно иметь длину не менее 3 символов.
+                    Имя должно иметь длину не менее 3-х символов.
                 </div>
             </div>
             <div class="mb-2 col-md-12">
@@ -56,11 +56,20 @@
                 <label for="password_input_id" class="form-label">Пароль<span class="text-danger ms-1">*</span></label>
                 <input type="password" pattern="^(?=.*\d).{6,}$" class="form-control" autocomplete="on" id="password_input_id" required>
                 <div class="invalid-feedback">
-                    Пароль должен содержать не менее 6 символов и хотя бы одну цифру.
+                    Пароль должен содержать не менее 6-х символов и хотя бы одну цифру.
                 </div>
             </div>
             <div class="d-grid gap-2 col-md-12">
-                <button class="btn btn-primary" type="submit">Регистрация</button>
+                <button class="btn btn-primary" type="submit" id="registration_buttom_id">Регистрация</button>
+                <button class="btn btn-primary d-none" type="button" id="placholder_buttom_id">
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    <span role="status">Отправка формы</span>
+                </button>
+            </div>
+            <div class="mb-2 col-md-12 d-none" id="server_error_mess_id">
+                <div class="invalid-feedback d-block">
+                    При отправке формы произошла ошибка, повторите попытку позже.
+                </div>
             </div>
           </form>
     </div>
