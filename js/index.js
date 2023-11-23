@@ -5,7 +5,9 @@ export { userIsAuthorized, userIsNotAuthorized };
 
 window.myApp = window.myApp || {};
 window.myApp.tokenVerificationResult = window.myApp.tokenVerificationResult || false;
-loadPageFromCurrentUrl();
+
+// loadPageFromCurrentUrl();
+
 $(function() {
     const userToken = localStorage.getItem('JWTToken');
     if (userToken !== null) {
@@ -18,7 +20,7 @@ $(function() {
                 userIsNotAuthorized();
             }
 
-            //loadPageFromCurrentUrl();
+            loadPageFromCurrentUrl();
             init();
         }
 
@@ -26,7 +28,7 @@ $(function() {
     }
     else {
         userIsNotAuthorized();
-        //loadPageFromCurrentUrl();
+        loadPageFromCurrentUrl();
         init();
     }
 });

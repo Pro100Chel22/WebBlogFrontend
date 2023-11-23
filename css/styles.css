@@ -41,3 +41,7 @@ main {
 .rightButton {
     text-align: right;
 }
+
+.postImageSize {
+    max-height: 350px;
+}
