@@ -5,16 +5,14 @@ export { userIsAuthorized, userIsNotAuthorized };
 
 window.myApp = window.myApp || {};
 window.myApp.tokenVerificationResult = window.myApp.tokenVerificationResult || false;
-window.myApp.userModel = window.myApp.userModel || {};
 
 $(function() {
     const userToken = localStorage.getItem('JWTToken');
     if (userToken !== null) {
         const loadEmail = (data) => {
-            console.log(data);
+            console.log("index profile get", data);
             if (data.status === 200) {
                 userIsAuthorized(data.body.email);
-                window.myApp.userModel = data.body;
             }
             else {
                 userIsNotAuthorized();
