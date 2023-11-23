@@ -1,0 +1,58 @@
+<div class="container my-3">
+    <div class="row">
+        <div class="col-12 mb-3 gap-2 d-flex justify-content-end">
+            <button type="button" class="btn btn-secondary d-lg-none">Фильтры</button>
+            <button type="button" class="btn btn-primary ">Написать пост</button>  
+        </div>
+        <div class="col-12 shadow-lg rounded-3 p-3">
+            <form class="row g-3">
+                <div class="col-lg-6">
+                    <label for="author_input_id" class="form-label">Поиск по имени автора</label>
+                    <input type="text" class="form-control" id="author_input_id">
+                </div>
+                <div class="col-lg-6">
+                    <label for="tag_input_id" class="form-label">Поиск по тэгам</label>
+                    <select id="tag_input_id" size="3" class="form-select" multiple>
+                        <option selected>Откройте это меню выбора</option>
+                        <option value="1">Один</option>
+                        <option value="2">Два</option>
+                        <option value="3">Три</option>
+                    </select>
+                </div>
+                <div class="col-lg-4">
+                    <label for="tag_input_id" class="form-label">Сортировать</label>
+                    <select id="tag_input_id" class="form-select">
+                        <option value="CreateAsc" selected>По дате создания (сначала новые)</option>
+                        <option value="CreateDesc">По дате создания (сначала старые)</option>
+                        <option value="LikeAsc">По количеству лайков (по возрастанию)</option>
+                        <option value="LikeDesc">По количеству лайков (по убыванию)</option>
+                    </select>
+                </div>
+                <div class="col-lg-2">
+                    <label for="inputZip" class="form-label">Время чтения от</label>
+                    <input type="number" class="form-control" id="inputZip">
+                </div>
+                <div class="col-lg-2">
+                    <label for="inputZip" class="form-label">Время чтения до</label>
+                    <input type="number" class="form-control" id="inputZip">
+                </div>
+                <div class="col-lg-2 d-flex align-items-center">
+                    <div class="form-check">
+                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                        <label class="form-check-label" for="flexCheckDefault">
+                            Только мои группы
+                        </label>
+                    </div>
+                </div>
+                <div class="col-lg-2 d-flex justify-content-end align-items-center">
+                    <button type="submit" class="btn btn-primary">Применить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="col-12 mb-3 mb-lg-0 gap-2 d-flex justify-content-end">
+    <button type="button" class="btn btn-secondary d-lg-none">Фильтры</button>
+    <button type="button" class="btn btn-primary ">Написать пост</button>  
+</div> -->
