@@ -1,264 +1,133 @@
-<div class="container-md my-3">
-    <div class="row">
-        <div class="col-12 mb-3 gap-2 d-flex justify-content-end">
-            <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse_filters_id" class="btn btn-secondary d-xxl-none">Фильтры</button>
-            <button type="button" class="btn btn-primary ">Написать пост</button>  
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-12 col-xxl-3 collapse d-xxl-block" id="collapse_filters_id">
-            <div class="card">
-                <div class="card-header">
-                    Фильтры
+<div class="body placeholder-glow">
+    <div class="main">
+        <div class="container-md py-3">
+            <div class="row">
+                <div class="col-12 gap-2 d-flex justify-content-end">
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse_filters_id" class="btn btn-secondary d-xxl-none">Фильтры</button>
+                    <button type="button" class="btn btn-primary d-none" id="write_post_button_id">Написать пост</button>  
                 </div>
-                <div class="card-body">
-                    <form class="row g-3">
-                        <div class="col-md-6 col-xxl-12">
-                            <label for="author_input_id" class="form-label">Поиск по имени автора</label>
-                            <input type="text" class="form-control" id="author_input_id">
+                <div class="col-12 col-xxl-3 mt-3 mt-xxl-0 collapse d-xxl-block" id="collapse_filters_id">
+                    <div class="card">
+                        <div class="card-header">
+                            Фильтры
                         </div>
-                        <div class="col-md-6 col-xxl-12">
-                            <label for="tag_input_id" class="form-label">Поиск по тэгам</label>
-                            <select id="tag_input_id" size="3" class="form-select" multiple>
-                            </select>
+                        <div class="card-body">
+                            <form class="row g-3">
+                                <div class="col-md-6 col-xxl-12">
+                                    <label for="author_input_id" class="form-label">Поиск по имени автора</label>
+                                    <input type="text" class="form-control d-none" id="author_input_id">
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-6 col-xxl-12">
+                                    <label for="tag_input_id" class="form-label">Поиск по тэгам</label>
+                                    <select id="tag_input_id" size="3" class="form-select d-none" multiple>
+                                    </select>
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-6 col-xxl-12">
+                                    <label for="tag_input_id" class="form-label">Сортировать</label>
+                                    <select id="tag_input_id" class="form-select d-none">
+                                        <option value="CreateAsc" selected>По дате создания (сначала новые)</option>
+                                        <option value="CreateDesc">По дате создания (сначала старые)</option>
+                                        <option value="LikeAsc">По количеству лайков (по возрастанию)</option>
+                                        <option value="LikeDesc">По количеству лайков (по убыванию)</option>
+                                    </select>
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-3 col-xxl-6">
+                                    <label for="inputZip" class="form-label">Время чтения от</label>
+                                    <input type="number" class="form-control d-none" id="inputZip">
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-3 col-xxl-6">
+                                    <label for="inputZip" class="form-label">Время чтения до</label>
+                                    <input type="number" class="form-control d-none" id="inputZip">
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-6 col-xxl-12 d-flex align-items-center">
+                                    <div class="form-check d-none">
+                                        <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
+                                        <label class="form-check-label" for="flexCheckDefault">
+                                            Только мои группы
+                                        </label>
+                                    </div>
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-6 col-xxl-12 d-flex d-xxl-grid gap-2">
+                                    <button type="submit" class="btn btn-primary ms-auto ms-xxl-0" disabled>Применить</button>
+                                </div>
+                            </form>
                         </div>
-                        <div class="col-md-6 col-xxl-12">
-                            <label for="tag_input_id" class="form-label">Сортировать</label>
-                            <select id="tag_input_id" class="form-select">
-                                <option value="CreateAsc" selected>По дате создания (сначала новые)</option>
-                                <option value="CreateDesc">По дате создания (сначала старые)</option>
-                                <option value="LikeAsc">По количеству лайков (по возрастанию)</option>
-                                <option value="LikeDesc">По количеству лайков (по убыванию)</option>
-                            </select>
-                        </div>
-                        <div class="col-md-3 col-xxl-6">
-                            <label for="inputZip" class="form-label">Время чтения от</label>
-                            <input type="number" class="form-control" id="inputZip">
-                        </div>
-                        <div class="col-md-3 col-xxl-6">
-                            <label for="inputZip" class="form-label">Время чтения до</label>
-                            <input type="number" class="form-control" id="inputZip">
-                        </div>
-                        <div class="col-md-6 col-xxl-12 d-flex align-items-center">
-                            <div class="form-check">
-                                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault">
-                                <label class="form-check-label" for="flexCheckDefault">
-                                    Только мои группы
-                                </label>
+                    </div>
+                </div>
+                <div class="col-12 col-xxl-9 mt-3 mt-xxl-0">
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <span class="placeholder placeholderColor col-6"></span>
+                            </div>
+                            <div class="mb-3 pb-2 border-bottom border-2">
+                                <span class="placeholder placeholderColor col-4 placeholder-lg"></span>
+                            </div>
+                            <div class="mb-3">
+                                <span class="placeholder placeholderColor col-12"></span>
+                                <span class="placeholder placeholderColor col-10"></span>
+                                <span class="placeholder placeholderColor col-11"></span>
+                                <span class="placeholder placeholderColor col-9"></span>
+                                <span class="placeholder placeholderColor col-5"></span>
+                                <span class="placeholder placeholderColor col-12"></span>
+                            </div>
+                            <div class="mb-3 text-body-secondary">
+                                <span class="placeholder placeholderColor col-1"></span>
+                                <span class="placeholder placeholderColor col-1"></span>
+                            </div>
+                            <div>
+                                <span class="placeholder placeholderColor col-2"></span>
                             </div>
                         </div>
-                        <div class="col-md-6 col-xxl-12 d-flex d-xxl-grid gap-2">
-                            <button type="submit" class="btn btn-primary ms-auto ms-xxl-0">Применить</button>
+                        <div class="card-footer d-flex">
+                            <span class="me-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                </svg>
+                            </span>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>
-        <div class="col-12 mt-3 mt-xxl-0 col-xxl-9">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <span>
-                            <span id="post_author_id">Bob</span> - <span id="post_time_id">19.12.2022 17:15</span> в сообществе "<span id="community_name_id">Стажировка</span>"
-                        </span>
-                    </div>
-                    <div class="mb-3 pb-2 border-bottom border-2">
-                        <h4 id="post_name_id">Проблема с процессором</h4>
-                    </div>
-                    <div class="mb-3">
-                        <img src="https://images.bjorn3d.com/Material/Images/308_FX5200-1-2.jpg" class="postImageSize rounded img-fluid mx-auto d-block" alt="...">
-                    </div>
-                    <div class="mb-3">
-                        <span>
-                            Если группа является закрытой, и пользователь на неё не подписан - лента постов не отображается.
-                            Иначе отображаются посты группы удовлетворяющие критериям фильтрации. 
-                            Доступные параметры сортировки и фильтрации (могут быть скомбинированы между собой):
-                            Тэги постов (при фильтрации можно указать несколько категорий)
-                            Сортировка постов (по дате создания (сначала новые), по дате создания (сначала старые)), по количеству лайков (по убыванию и возрастанию)
-                            Аналогично главной странице - на данной странице доступна пагинация постов.
-                            Ссылка “написать пост”  доступна только администраторам сообщества и ведет  на соответствующую страницу (в таком случае в поле “Группа” необходимо автоматически подставлять в в качестве выбранного данное сообщество) .
-
-                            В остальном страница аналогичная главной, за исключением пути - localhost/communities/{id}/posts
-                        </span>
-                    </div>
-                    <div class="mb-3 text-body-secondary">
-                        <span>#<span id="tag_id">18+</span></span>
-                    </div>
-                    <div>
-                        <span>Время чтения: <span id="read_time_id">3</span> мин.</span>
-                    </div>
-                </div>
-                <div class="card-footer d-flex">
-                    <span class="me-auto">
-                        <span id="comments_count_id">4</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                        </svg>
-                    </span>
-                    <span>
-                        <span id="likes_count_id">7</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg>
-                    </span>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <span>
-                            <span id="post_author_id">Bob</span> - <span id="post_time_id">19.12.2022 17:15</span> в сообществе "<span id="community_name_id">Стажировка</span>"
-                        </span>
-                    </div>
-                    <div class="mb-3 pb-2 border-bottom border-2">
-                        <h4 id="post_name_id">Проблема с процессором</h4>
-                    </div>
-                    <div class="mb-3">
-                        <img src="https://images.bjorn3d.com/Material/Images/308_FX5200-1-2.jpg" class="postImageSize rounded img-fluid mx-auto d-block" alt="...">
-                    </div>
-                    <div class="mb-3">
-                        <span>
-                            Если группа является закрытой, и пользователь на неё не подписан - лента постов не отображается.
-                            Иначе отображаются посты группы удовлетворяющие критериям фильтрации. 
-                            Доступные параметры сортировки и фильтрации (могут быть скомбинированы между собой):
-                            Тэги постов (при фильтрации можно указать несколько категорий)
-                            Сортировка постов (по дате создания (сначала новые), по дате создания (сначала старые)), по количеству лайков (по убыванию и возрастанию)
-                            Аналогично главной странице - на данной странице доступна пагинация постов.
-                            Ссылка “написать пост”  доступна только администраторам сообщества и ведет  на соответствующую страницу (в таком случае в поле “Группа” необходимо автоматически подставлять в в качестве выбранного данное сообщество) .
-
-                            В остальном страница аналогичная главной, за исключением пути - localhost/communities/{id}/posts
-                        </span>
-                    </div>
-                    <div class="mb-3 text-body-secondary">
-                        <span>#<span id="tag_id">18+</span></span>
-                    </div>
-                    <div>
-                        <span>Время чтения: <span id="read_time_id">3</span> мин.</span>
-                    </div>
-                </div>
-                <div class="card-footer d-flex">
-                    <span class="me-auto">
-                        <span id="comments_count_id">4</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                        </svg>
-                    </span>
-                    <span>
-                        <span id="likes_count_id">7</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg>
-                    </span>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <span>
-                            <span id="post_author_id">Bob</span> - <span id="post_time_id">19.12.2022 17:15</span> в сообществе "<span id="community_name_id">Стажировка</span>"
-                        </span>
-                    </div>
-                    <div class="mb-3 pb-2 border-bottom border-2">
-                        <h4 id="post_name_id">Проблема с процессором</h4>
-                    </div>
-                    <div class="mb-3">
-                        <img src="https://images.bjorn3d.com/Material/Images/308_FX5200-1-2.jpg" class="postImageSize rounded img-fluid mx-auto d-block" alt="...">
-                    </div>
-                    <div class="mb-3">
-                        <span>
-                            Если группа является закрытой, и пользователь на неё не подписан - лента постов не отображается.
-                            Иначе отображаются посты группы удовлетворяющие критериям фильтрации. 
-                            Доступные параметры сортировки и фильтрации (могут быть скомбинированы между собой):
-                            Тэги постов (при фильтрации можно указать несколько категорий)
-                            Сортировка постов (по дате создания (сначала новые), по дате создания (сначала старые)), по количеству лайков (по убыванию и возрастанию)
-                            Аналогично главной странице - на данной странице доступна пагинация постов.
-                            Ссылка “написать пост”  доступна только администраторам сообщества и ведет  на соответствующую страницу (в таком случае в поле “Группа” необходимо автоматически подставлять в в качестве выбранного данное сообщество) .
-
-                            В остальном страница аналогичная главной, за исключением пути - localhost/communities/{id}/posts
-                        </span>
-                    </div>
-                    <div class="mb-3 text-body-secondary">
-                        <span>#<span id="tag_id">18+</span></span>
-                    </div>
-                    <div>
-                        <span>Время чтения: <span id="read_time_id">3</span> мин.</span>
-                    </div>
-                </div>
-                <div class="card-footer d-flex">
-                    <span class="me-auto">
-                        <span id="comments_count_id">4</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                        </svg>
-                    </span>
-                    <span>
-                        <span id="likes_count_id">7</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg>
-                    </span>
-                </div>
-            </div>
-            <div class="card mb-3">
-                <div class="card-body">
-                    <div class="mb-3">
-                        <span>
-                            <span id="post_author_id">Bob</span> - <span id="post_time_id">19.12.2022 17:15</span> в сообществе "<span id="community_name_id">Стажировка</span>"
-                        </span>
-                    </div>
-                    <div class="mb-3 pb-2 border-bottom border-2">
-                        <h4 id="post_name_id">Проблема с процессором</h4>
-                    </div>
-                    <div class="mb-3">
-                        <img src="https://images.bjorn3d.com/Material/Images/308_FX5200-1-2.jpg" class="postImageSize rounded img-fluid mx-auto d-block" alt="...">
-                    </div>
-                    <div class="mb-3">
-                        <span>
-                            Если группа является закрытой, и пользователь на неё не подписан - лента постов не отображается.
-                            Иначе отображаются посты группы удовлетворяющие критериям фильтрации. 
-                            Доступные параметры сортировки и фильтрации (могут быть скомбинированы между собой):
-                            Тэги постов (при фильтрации можно указать несколько категорий)
-                            Сортировка постов (по дате создания (сначала новые), по дате создания (сначала старые)), по количеству лайков (по убыванию и возрастанию)
-                            Аналогично главной странице - на данной странице доступна пагинация постов.
-                            Ссылка “написать пост”  доступна только администраторам сообщества и ведет  на соответствующую страницу (в таком случае в поле “Группа” необходимо автоматически подставлять в в качестве выбранного данное сообщество) .
-
-                            В остальном страница аналогичная главной, за исключением пути - localhost/communities/{id}/posts
-                        </span>
-                    </div>
-                    <div class="mb-3 text-body-secondary">
-                        <span>#<span id="tag_id">18+</span></span>
-                    </div>
-                    <div>
-                        <span>Время чтения: <span id="read_time_id">3</span> мин.</span>
-                    </div>
-                </div>
-                <div class="card-footer d-flex">
-                    <span class="me-auto">
-                        <span id="comments_count_id">4</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
-                            <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
-                            <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
-                        </svg>
-                    </span>
-                    <span>
-                        <span id="likes_count_id">7</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
-                            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
-                        </svg>
-                    </span>
+    </div>
+    <div class="paginationFooter">
+        <div class="container-md">
+            <div class="row">
+                <div class="col-xxl-3"></div>
+                <div class="col-12 col-xxl-9">
+                    <nav aria-label="Пример навигации по страницам">
+                        <ul class="pagination">
+                          <li class="page-item">
+                            <a class="page-link" href="#">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li class="page-item"><a class="page-link" href="#">1</a></li>
+                          <li class="page-item"><a class="page-link" href="#">2</a></li>
+                          <li class="page-item"><a class="page-link" href="#">3</a></li>
+                          <li class="page-item">
+                            <a class="page-link" href="#">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                    </nav> 
                 </div>
             </div>
         </div>
     </div>
 </div>
-
-<!-- 
-
- -->
-<!-- <div class="col-12 mb-3 mb-lg-0 gap-2 d-flex justify-content-end">
-    <button type="button" class="btn btn-secondary d-lg-none">Фильтры</button>
-    <button type="button" class="btn btn-primary ">Написать пост</button>  
-</div> -->
+<script type="module" src="/js/main.js"></script>
