@@ -1,6 +1,20 @@
 import IMask from '../../node_modules/imask/esm/index.js';
 
-export { dateConvertToUTCWithSmooth, disableForm, undisableForm, validatedDate, onFocusValidate, validate, activateExistEmailError, diactivateExistEmailError, phoneMask, changeDateFormat }
+export { 
+    dateConvertToUTCWithSmooth, 
+    disableForm, 
+    undisableForm, 
+    validatedDate, 
+    onFocusValidate, 
+    validate, 
+    activateExistEmailError, 
+    diactivateExistEmailError, 
+    phoneMask, 
+    changeDateFormat,
+    changeDateTimeFormat,
+    parseQeuryParams,
+    buildNumerationPage
+}
 
 function dateConvertToUTCWithSmooth(dateStr, dH = 0, dM = 0, dS = 0) {
     const date = new Date(dateStr);
@@ -76,4 +90,62 @@ function phoneMask(phoneInput) {
 
 function changeDateFormat(date) {
     return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+}
+
+function changeDateTimeFormat (dateString) {
+    let date = new Date(dateString);
+
+    let options = {
+        year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        hour12: false 
+    };
+
+    return date.toLocaleString('ru-RU', options).replace(',', '');
+}
+
+function parseQeuryParams (url) {
+    let params = [];
+    let rightParams = true;
+
+    let searchParams = new URLSearchParams(new URL(url).search);
+    searchParams.forEach(function(value, key) {
+        if (value !== null && value.length > 0) {
+            const param = params.find(param => param.key === key);
+            if (param) {
+                param.values.push(value);
+            }
+            else {
+                params.push({ key, values: [value] });
+            }
+        }
+        else {
+            rightParams = false;
+        }
+    });
+    
+    return { rightParams, params, search: window.location.search };
+}
+
+function buildNumerationPage (pagination, sides = 2) {
+    let rightPage = Math.min(pagination.current + sides, pagination.count);
+    let leftPage = Math.max(pagination.current - sides, 1);
+
+    if (rightPage - leftPage < 2 * sides && pagination.count > 2 * sides) {
+        if (pagination.current + sides > rightPage) {
+            leftPage -= pagination.current + sides - rightPage;
+        }
+        else if (pagination.current - sides < leftPage) {
+            rightPage += leftPage - pagination.current + sides; 
+        }
+    }
+    else if (pagination.count <= 2 * sides) {
+        leftPage = 1;
+        rightPage = pagination.count;
+    }
+
+    return { leftPage, rightPage };
 }

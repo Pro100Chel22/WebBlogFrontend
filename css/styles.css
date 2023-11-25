@@ -66,3 +66,7 @@ main {
 .postText {
     white-space: pre-wrap;
 }
+
+.sizePageSelector {
+    max-width: 205px;
+}

@@ -1,7 +1,7 @@
-import { loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
-import { userIsAuthorized, userIsNotAuthorized } from './index.js';
+import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from './tools/loadMainContent.js';
+import { userIsNotAuthorized } from './index.js';
 import { request } from './tools/request.js';
-import { disableForm, undisableForm } from './tools/helpers.js';
+import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from './tools/helpers.js';
 
 // При одновлении парсим url если параметры верные, отправляем с ними запрос
 // Если пришел 400 или 404, то говорим, что неправильные параметры
@@ -11,20 +11,16 @@ import { disableForm, undisableForm } from './tools/helpers.js';
 
 // При нажитии на кнопку применить берем параметры из фильтров и преобразуем в qeury и отправляем с ними запрос
 
-
 // Осталось:
 // 1) Создать модельку для отображения неправильного url
 // 2) Создать модельку для отображения того, что ничего не найдено
-// 3) Добавить Пагинацию ...
 // 4) Уменьшение текста, если он большой
 // 5) Ставить лайки 
 
-let tempPostSave = null;
+let tempPostSave;
 let qeuryParams;
 
 function init() {
-    tempPostSave = null;
-
     if (window.myApp.tokenVerificationResult) {
         $('#write_post_button_id').removeClass('d-none'); 
 
@@ -41,11 +37,11 @@ function init() {
         { id: '#only_my_groups_checkbox_id', param: 'onlyMyCommunities' },
     ];
 
+    setPageSizeInput();
     setApplyButton(filers);
-    getTempPost();
+    saveTempPost();
 
-    qeuryParams = parseQeuryParams();
-
+    qeuryParams = parseQeuryParams(window.location.href);
     const size = qeuryParams.params.find(param => param.key === 'size');
     if (size) {
         $('#count_posts_on_page_id').val(size.values[0]);
@@ -61,8 +57,26 @@ function init() {
     getTags(filers);
 }
 
+function setPageSizeInput () {
+    $('#count_posts_on_page_id').on('input', function() {
+        let searchParams = new URLSearchParams(new URL(window.location.href).search);
+
+        if (searchParams.has('page')) {
+            searchParams.set('page', 1);
+        }
+
+        if (searchParams.has('size')) {
+            searchParams.set('size', $('#count_posts_on_page_id').val());
+        } else {
+            searchParams.append('size', $('#count_posts_on_page_id').val());
+        }
+
+        updatePost(searchParams);
+    });
+}
+
 function setApplyButton (filers) {
-    $('#apply_button_id').on('click', function(event) {
+    $('#apply_button_id').on('click', function() {
         let params = new URLSearchParams();
 
         Array.from(filers).forEach(filerId => {
@@ -76,8 +90,8 @@ function setApplyButton (filers) {
                     params.append(filerId.param, value);
                 }
                 else if (value.length > 0) {
-                    Array.from(value).forEach(v => {
-                        params.append(filerId.param, v);
+                    Array.from(value).forEach(valueElement => {
+                        params.append(filerId.param, valueElement);
                     });
                 }
             }
@@ -92,37 +106,20 @@ function setApplyButton (filers) {
     });
 }
 
-function updatePost (params) {
-    let queryString = '?' + params.toString();
-    window.history.replaceState({}, '', '/' + queryString);
-    getPosts(queryString);
+function saveTempPost () {
+    let tempPost = $('#templ_post_id');
+
+    tempPostSave = tempPost.clone();
+    tempPostSave.removeClass('d-none');
+    tempPostSave.removeAttr('id');
+
+    tempPost.remove();
 }
 
-function parseQeuryParams () {
-    let params = [];
-    let rightParams = true;
-
-    let searchParams = new URLSearchParams(new URL(window.location.href).search);
-    searchParams.forEach(function(value, key) {
-        if (value !== null && value.length > 0) {
-            const param = params.find(param => param.key === key);
-            if (param) {
-                param.values.push(value);
-            }
-            else {
-                params.push({ key, values: [value] });
-            }
-
-            if (key !== 'tags' && params.values.length > 1) {
-                rightParams = false;
-            }
-        }
-        else {
-            rightParams = false;
-        }
-    });
-    
-    return { rightParams, params, search: window.location.search };
+function updatePost (params) {
+    let queryString = '?' + params.toString();
+    window.history.pushState({}, '', '/' + queryString);
+    getPosts(queryString);
 }
 
 function getPosts (search) {
@@ -131,18 +128,15 @@ function getPosts (search) {
 
         resetPageButtons();
 
-        if (data.status === 200) {
-            $('#post_placeholder_id').addClass('d-none');
-            
-            let tempPost = getTempPost();
-            
+        if (data.status === 200) {       
             let postsContainer = $('#posts_container_id');
             postsContainer.empty();
+            
             Array.from(data.body.posts).forEach(post => {
-                insertPost(tempPost, postsContainer, post);
+                insertPost(tempPostSave, postsContainer, post);
             });
 
-            creatPageButtons (data.body.pagination);
+            creatPageButtons(data.body.pagination);
         }
         else if (data.status === 401) {
             userIsNotAuthorized();
@@ -158,100 +152,6 @@ function getPosts (search) {
     }
 
     request('https://blog.kreosoft.space/api/post/' + search, 'GET', loadPosts, null, window.myApp.tokenVerificationResult ? localStorage.getItem('JWTToken') : null);
-}
-
-function creatPageButtons (pagination) {
-    setListenerOnPageButton($('#start_page_id'), 1);
-    setListenerOnPageButton($('#prev_page_id'), Math.max(pagination.current - 1, 1));
-    setListenerOnPageButton($('#next_page_id'), Math.min(pagination.current + 1, pagination.count));
-    setListenerOnPageButton($('#end_page_id'), pagination.count);
-
-    $('#page_placeholder_id').remove();
-    let numeration = buildNumeration(pagination);
-    for(let i = numeration.rightPage; i >= numeration.leftPage; i--) {
-        let listItem = $('<li>', {
-            'class': 'page-item reset' + (i === pagination.current? ' active' : ''),
-            html: $('<a>', {
-                'class': 'page-link',
-                text:  i 
-            })
-        });
-
-        setListenerOnPageButton(listItem.children().first(), i);
-
-        listItem.insertAfter($('#insert_after_id'));
-    }
-}
-
-function buildNumeration (pagination) {
-    let sides = 2;
-
-    let rightPage = Math.min(pagination.current + sides, pagination.count);
-    let leftPage = Math.max(pagination.current - sides, 1);
-
-    if (rightPage - leftPage < 2 * sides && pagination.count > 2 * sides) {
-        if (pagination.current + sides > rightPage) {
-            leftPage -= pagination.current + sides - rightPage;
-        }
-        else if (pagination.current - sides < leftPage) {
-            rightPage += leftPage - pagination.current + sides; 
-        }
-    }
-    else if (pagination.count <= 2 * sides) {
-        leftPage = 1;
-        rightPage = pagination.count;
-    }
-
-    return { leftPage, rightPage };
-}
-
-function setListenerOnPageButton (element, page) {
-    let searchParams = moveToPage(page);
-
-    element.attr('href', '?' + searchParams);
-    element.on('click', function(event) {
-        event.preventDefault();
-
-        updatePost(searchParams);
-    });
-}
-
-function resetPageButtons () {
-    const arrowButtonId = ['#start_page_id', '#prev_page_id' , '#next_page_id', '#end_page_id'];
-
-    Array.from(arrowButtonId).forEach(buttonId => {
-        $(buttonId).removeAttr('href');
-        $(buttonId).off();
-    });
-
-    $('#page_1_id').children().first().removeAttr('href');
-    $('#page_1_id').children().first().off();
-
-    $('.reset').remove();
-}
-
-function moveToPage (page) {
-    let searchParams = new URLSearchParams(new URL(window.location.href).search);
-
-    if (searchParams.has('page')) {
-        searchParams.set('page', page);
-    } else {
-        searchParams.append('page', page);
-    }
-    
-    return searchParams;
-}
-
-function getTempPost () {
-    if (tempPostSave === null) {
-        let tempPost = $('#templ_post_id');
-        tempPostSave = tempPost.clone();
-        tempPostSave.removeClass('d-none');
-        tempPostSave.removeAttr('id');
-        tempPost.remove();
-    }
-
-    return tempPostSave;
 }
 
 function insertPost (tempPost, postsContainer, post) {
@@ -277,7 +177,7 @@ function insertPost (tempPost, postsContainer, post) {
     insertText(cloned, '#post_name_id', post.title);
     insertText(cloned, '#text_post_id', post.description);
     insertText(cloned, '#post_author_id', post.author);
-    insertText(cloned, '#post_time_id', changeDateFormat(post.createTime));
+    insertText(cloned, '#post_time_id', changeDateTimeFormat(post.createTime));
     insertText(cloned, '#read_time_id', post.readingTime);
     insertText(cloned, '#comments_count_id', post.commentsCount);
     insertText(cloned, '#likes_count_id', post.likes);
@@ -305,19 +205,64 @@ function insertText (element, elementId, text) {
     postContent.removeAttr('id');
 }
 
-function changeDateFormat (dateString) {
-    let date = new Date(dateString);
+function creatPageButtons (pagination) {
+    setListenerOnPageButton($('#start_page_id'), 1);
+    setListenerOnPageButton($('#prev_page_id'), Math.max(pagination.current - 1, 1));
+    setListenerOnPageButton($('#next_page_id'), Math.min(pagination.current + 1, pagination.count));
+    setListenerOnPageButton($('#end_page_id'), pagination.count);
 
-    let options = {
-        year: 'numeric',
-        month: '2-digit',
-        day: '2-digit',
-        hour: '2-digit',
-        minute: '2-digit',
-        hour12: false 
-    };
+    $('#page_placeholder_id').remove();
+    let numeration = buildNumerationPage(pagination);
+    for(let i = numeration.rightPage; i >= numeration.leftPage; i--) {
+        let listItem = $('<li>', {
+            'class': 'page-item reset' + (i === pagination.current? ' active' : ''),
+            html: $('<a>', {
+                'class': 'page-link',
+                text:  i 
+            })
+        });
 
-    return date.toLocaleString('ru-RU', options).replace(',', '');
+        setListenerOnPageButton(listItem.children().first(), i);
+
+        listItem.insertAfter($('#insert_after_id'));
+    }
+}
+
+function setListenerOnPageButton (element, page) {
+    let searchParams = changePage(page);
+
+    element.attr('href', '?' + searchParams);
+    element.on('click', function(event) {
+        event.preventDefault();
+
+        updatePost(searchParams);
+    });
+}
+
+function resetPageButtons () {
+    const arrowButtonId = ['#start_page_id', '#prev_page_id' , '#next_page_id', '#end_page_id'];
+
+    Array.from(arrowButtonId).forEach(buttonId => {
+        $(buttonId).removeAttr('href');
+        $(buttonId).off();
+    });
+
+    $('#page_1_id').children().first().removeAttr('href');
+    $('#page_1_id').children().first().off();
+
+    $('.reset').remove();
+}
+
+function changePage (page) {
+    let searchParams = new URLSearchParams(new URL(window.location.href).search);
+
+    if (searchParams.has('page')) {
+        searchParams.set('page', page);
+    } else {
+        searchParams.append('page', page);
+    }
+    
+    return searchParams;
 }
 
 function getTags (filters) {
