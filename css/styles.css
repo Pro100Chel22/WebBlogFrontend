@@ -62,3 +62,7 @@ main {
 .postImageSize {
     max-height: 350px;
 }
+
+.postText {
+    white-space: pre-wrap;
+}
