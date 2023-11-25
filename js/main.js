@@ -3,21 +3,13 @@ import { userIsNotAuthorized } from './index.js';
 import { request } from './tools/request.js';
 import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from './tools/helpers.js';
 
-// При одновлении парсим url если параметры верные, отправляем с ними запрос
-// Если пришел 400 или 404, то говорим, что неправильные параметры
-
-// После того, как пришли тэги, то берем распаршенные параметры и вставляем их в фильтры
-// Если типы параметров неверные, игнорируем их
-
-// При нажитии на кнопку применить берем параметры из фильтров и преобразуем в qeury и отправляем с ними запрос
-
 // Осталось:
-// 1) Создать модельку для отображения неправильного url
-// 2) Создать модельку для отображения того, что ничего не найдено
 // 4) Уменьшение текста, если он большой
 // 5) Ставить лайки 
 
 let tempPostSave;
+let notFoundSave;
+let errorQeuryParamsSave;
 let qeuryParams;
 
 function init() {
@@ -39,7 +31,9 @@ function init() {
 
     setPageSizeInput();
     setApplyButton(filers);
-    saveTempPost();
+    tempPostSave = getTemp($('#templ_post_id'));
+    notFoundSave = getTemp($('#not_found_id'));
+    errorQeuryParamsSave = getTemp($('#error_qeury_params_id'));
 
     qeuryParams = parseQeuryParams(window.location.href);
     const size = qeuryParams.params.find(param => param.key === 'size');
@@ -51,10 +45,15 @@ function init() {
         getPosts(qeuryParams.search);
     }
     else {
-        $('#posts_container_id').text('неправильные параметры');
+        insertElement($('#posts_container_id'), errorQeuryParamsSave);
     }
 
     getTags(filers);
+}
+
+function insertElement (container, element) {
+    container.empty();
+    element.appendTo(container);
 }
 
 function setPageSizeInput () {
@@ -106,14 +105,13 @@ function setApplyButton (filers) {
     });
 }
 
-function saveTempPost () {
-    let tempPost = $('#templ_post_id');
+function getTemp (element) {
+    let cloned = element.clone();
+    cloned.removeClass('d-none');
+    cloned.removeAttr('id');
+    element.remove();
 
-    tempPostSave = tempPost.clone();
-    tempPostSave.removeClass('d-none');
-    tempPostSave.removeAttr('id');
-
-    tempPost.remove();
+    return cloned;
 }
 
 function updatePost (params) {
@@ -128,15 +126,21 @@ function getPosts (search) {
 
         resetPageButtons();
 
-        if (data.status === 200) {       
-            let postsContainer = $('#posts_container_id');
-            postsContainer.empty();
-            
-            Array.from(data.body.posts).forEach(post => {
-                insertPost(tempPostSave, postsContainer, post);
-            });
+        if (data.status === 200) {   
+            if (data.body.posts.length > 0) {
+                let postsContainer = $('#posts_container_id');
+                postsContainer.empty();
+                
+                Array.from(data.body.posts).forEach(post => {
+                    insertPost(tempPostSave, postsContainer, post);
+                });
 
-            creatPageButtons(data.body.pagination);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                creatPageButtons(data.body.pagination);
+            }
+            else {
+                insertElement($('#posts_container_id'), notFoundSave);
+            }
         }
         else if (data.status === 401) {
             userIsNotAuthorized();
@@ -144,10 +148,10 @@ function getPosts (search) {
             return;
         }
         else if (data.status === 400 || data.status === 404) {
-            $('#posts_container_id').text('неправильные параметры');
+            insertElement($('#posts_container_id'), errorQeuryParamsSave);
         }
         else {
-            $('#posts_container_id').text('неизвестная ошибка');
+            insertElement($('#posts_container_id'), errorQeuryParamsSave);
         }
     }
 
@@ -174,8 +178,20 @@ function insertPost (tempPost, postsContainer, post) {
         cloned.find('#image_container_id').remove();
     }
 
+    if (post.description.length > 500) {
+        let textContainet = insertText(cloned, '#text_post_id', post.description.slice(0, 500) + '...');
+        cloned.find('#read_next_id').on('click', function() {
+            textContainet.text(post.description);
+            $(this).remove();
+        });
+        cloned.find('#read_next_id').removeAttr('id');
+    }
+    else {
+        insertText(cloned, '#text_post_id', post.description);
+        cloned.find('#read_next_id').remove();
+    }
+
     insertText(cloned, '#post_name_id', post.title);
-    insertText(cloned, '#text_post_id', post.description);
     insertText(cloned, '#post_author_id', post.author);
     insertText(cloned, '#post_time_id', changeDateTimeFormat(post.createTime));
     insertText(cloned, '#read_time_id', post.readingTime);
@@ -203,6 +219,7 @@ function insertText (element, elementId, text) {
     let postContent = element.find(elementId);
     postContent.text(text);
     postContent.removeAttr('id');
+    return postContent;
 }
 
 function creatPageButtons (pagination) {

@@ -64,7 +64,13 @@ main {
 }
 
 .postText {
+    font-size: 1em;
     white-space: pre-wrap;
+}
+
+.postLinkText {
+    color: blue; 
+    cursor: pointer;
 }
 
 .sizePageSelector {

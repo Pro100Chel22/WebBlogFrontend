@@ -12,7 +12,7 @@
                             Фильтры
                         </div>
                         <div class="card-body">
-                            <form class="row g-3">
+                            <div class="row g-3">
                                 <div class="col-md-6 col-xxl-12">
                                     <label for="author_input_id" class="form-label">Поиск по имени автора</label>
                                     <input type="text" class="form-control d-none" id="author_input_id">
@@ -56,7 +56,7 @@
                                 <div class="col-md-6 col-xxl-12 d-flex d-xxl-grid gap-2">
                                     <button type="button" class="btn btn-primary ms-auto ms-xxl-0" id="apply_button_id" disabled>Применить</button>
                                 </div>
-                            </form>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                             <div class="mb-3" id="image_container_id">
                                 <img src="" class="postImageSize rounded img-fluid mx-auto d-block" id="image_id">
                             </div>
-                            <div class="mb-3"><pre class="postText" id="text_post_id"></pre></div>
+                            <div class="mb-3"><pre class="postText m-0" id="text_post_id"></pre><span class="postLinkText" id="read_next_id">Читать дальше</span></div>
                             <div class="text-body-secondary" id="tags_id"></div>
                             <div>
                                 <span>Время чтения: <span id="read_time_id"></span> мин.</span>
@@ -133,6 +133,18 @@
                                 </svg>
                             </span>
                         </div>
+                    </div>
+                    <div class="text-center d-none" id="not_found_id">
+                        <p class="fs-3">Странно, но ничего не нашлось</p>
+                        <p class="lead">
+                            Попробуйте изменить критерии поиска
+                        </p>
+                    </div>
+                    <div class="text-center d-none" id="error_qeury_params_id">
+                        <p class="fs-3">Неправильные qeury параметры</p>
+                        <p class="lead">
+                            Похоже вы неправильно указали qeury параметры в url
+                        </p>
                     </div>
                 </div>
             </div>
