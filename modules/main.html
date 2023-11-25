@@ -27,8 +27,8 @@
                                 <div class="col-md-6 col-xxl-12">
                                     <label for="type_sort_input_id" class="form-label">Сортировать</label>
                                     <select id="type_sort_input_id" class="form-select d-none">
-                                        <option value="CreateAsc" selected>По дате создания (сначала новые)</option>
-                                        <option value="CreateDesc">По дате создания (сначала старые)</option>
+                                        <option value="CreateDesc" selected>По дате создания (сначала новые)</option>
+                                        <option value="CreateAsc">По дате создания (сначала старые)</option>
                                         <option value="LikeAsc">По количеству лайков (по возрастанию)</option>
                                         <option value="LikeDesc">По количеству лайков (по убыванию)</option>
                                     </select>
@@ -54,7 +54,7 @@
                                     <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                                 </div>
                                 <div class="col-md-6 col-xxl-12 d-flex d-xxl-grid gap-2">
-                                    <button type="submit" class="btn btn-primary ms-auto ms-xxl-0" id="apply_button_id" disabled>Применить</button>
+                                    <button type="button" class="btn btn-primary ms-auto ms-xxl-0" id="apply_button_id" disabled>Применить</button>
                                 </div>
                             </form>
                         </div>
@@ -144,36 +144,26 @@
                 <div class="col-xxl-3"></div>
                 <div class="col-12 col-xxl-9">
                     <div class="row">
-                        <div class="col-6 pt-4">
+                        <div class="col-12 col-sm-6 pt-4 d-flex justify-content-center justify-content-sm-start">
                             <nav>
-                                <ul class="pagination">
+                                <ul class="pagination pagination-sm">
                                     <li class="page-item">
-                                        <a class="page-link" href="#">
-                                            <span aria-hidden="true" >&laquo;</span>
-                                        </a>
+                                        <a class="page-link" id="start_page_id"><span>&laquo;</span></a>
                                     </li>    
-                                    <li class="page-item">
-                                        <a class="page-link" href="#">
-                                        <span aria-hidden="true">&lsaquo;</span>
-                                        </a>
+                                    <li class="page-item" id="insert_after_id">
+                                        <a class="page-link" id="prev_page_id"><span>&lsaquo;</span></a>
                                     </li>
-                                    <!-- <li class="page-item"><a class="page-link" href="#">1</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
-                                    <li class="page-item"><a class="page-link" href="#">3</a></li> -->
+                                    <li class="page-item" id="page_placeholder_id"><a class="page-link">1</a></li>
                                     <li class="page-item">
-                                        <a class="page-link" href="#">
-                                        <span aria-hidden="true">&rsaquo;</span>
-                                        </a>
+                                        <a class="page-link" id="next_page_id"><span>&rsaquo;</span></a>
                                     </li>
                                     <li class="page-item">
-                                        <a class="page-link" href="#">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
+                                        <a class="page-link" id="end_page_id"><span>&raquo;</span></a>
                                     </li>  
                                 </ul>
                             </nav> 
                         </div>
-                        <div class="col-6 pb-3 d-flex justify-content-end">
+                        <div class="col-12 col-sm-6 pb-3 d-flex justify-content-center justify-content-sm-end">
                             <div class="" style="max-width: 205px;">
                                 <label for="count_posts_on_page_id" class="">Число постов на странице</label>
                                 <select class="form-select" id="count_posts_on_page_id">
