@@ -6,7 +6,9 @@ let Router = {
         "/": { filePath: "main.html", tokenVerificationResultRequired: null }, // :id
         "/login": { filePath: "login.html", tokenVerificationResultRequired: false }, 
         "/registration": { filePath: "registration.html", tokenVerificationResultRequired: false },
-        "/profile": { filePath: "profile.html", tokenVerificationResultRequired: true }
+        "/profile": { filePath: "profile.html", tokenVerificationResultRequired: true },
+        "/communities": { filePath: "communities.html", tokenVerificationResultRequired: null },
+        "/communities/:id": { filePath: "community.html", tokenVerificationResultRequired: null }
     },
 
     init: function() {

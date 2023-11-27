@@ -54,6 +54,8 @@ function userIsNotAuthorized () {
 function init() {
     $('#logo_button_id').click(() => loadPageWithoutReload("/"));
     $('#main_page_button_id').click(() => loadPageWithoutReload("/"));
+    $('#author_page_button_id').click(() => loadPageWithoutReload("/"));
+    $('#community_page_button_id').click(() => loadPageWithoutReload("/communities"));
     $('#login_page_button_id').click(() => loadPageWithoutReload("/login"));
     $('#profile_page_button_id').click(() => loadPageWithoutReload("/profile"));
     $('#logout_button_id').click(() => {
