@@ -1,1 +1,225 @@
-asd
+<div class="body placeholder-glow d-none" id="community_page_id">
+    <div class="main">
+        <div class="container-lg py-3">
+            <div class="row mb-3 justify-content-end">
+                <div class="col-12 mt-3 mt-xxl-0">
+                    <div class="card card-body">
+                        <div class="row">
+                            <div class="col-md overflow-x-auto custom-text-nowrap">
+                                <h3>Группа "<span id="community_name_id"></span>"</h3>
+                            </div>
+                            <div class="col-md-auto">
+                                <div class="float-md-right">
+                                    <button type="button" class="btn btn-primary text-nowrap mt-1 d-none" id="write_post_button_id">Написать пост</button>
+                                    <button type="button" class="btn btn-primary text-nowrap mt-1 d-none" id="subscribe_button_id">Подписаться</button>
+                                    <button type="button" class="btn btn-danger text-nowrap mt-1 d-none" id="unsubscribe_button_id">Отписаться</button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="my-3">
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-people-fill" viewBox="0 0 16 16">
+                                    <path d="M7 14s-1 0-1-1 1-4 5-4 5 3 5 4-1 1-1 1zm4-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6m-5.784 6A2.238 2.238 0 0 1 5 13c0-1.355.68-2.75 1.936-3.72A6.325 6.325 0 0 0 5 9c-4 0-5 3-5 4s1 1 1 1zM4.5 8a2.5 2.5 0 1 0 0-5 2.5 2.5 0 0 0 0 5"/>
+                                </svg>
+                            </span>
+                            <span id="subscribers_count_id"></span>
+                            <span>подписчиков</span>
+                        </div>
+                        <div class="mb-3">
+                            <span>Тип сообщества: <span class="d-none" id="community_close_id">закрытое</span><span class="d-none" id="community_open_id">открытое</span></span>
+                        </div>
+                        <div>
+                            <h5>Администраторы</h5>
+                        </div>
+                        <div id="admins_container_id">
+                            <div class="row my-2 d-none" id="temp_admin_id">
+                                <div class="col-auto">
+                                    <img src="" class="border rounded-circle" style="width: 60px; height: 60px;" id="admin_image_id"> 
+                                </div>
+                                <div class="col p-0">
+                                    <h6 class="text-nowrap" id="admin_name_id"></h6>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="text-center d-none" id="close_group_id">
+                        <p class="fs-3">Закрытая группа</p>
+                        <p class="lead">
+                            Чтобы увидеть посты этой группы, нужно подписаться на нее
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row" id="community_posts_id">
+                <div class="col-12 gap-2 d-flex justify-content-end">
+                    <button type="button" data-bs-toggle="collapse" data-bs-target="#collapse_filters_id" class="btn btn-secondary d-xxl-none">Фильтры</button>
+                </div>
+                <div class="col-12 col-xxl-3 mt-3 mt-xxl-0 collapse d-xxl-block" id="collapse_filters_id">
+                    <div class="card">
+                        <div class="card-header">
+                            Фильтры
+                        </div>
+                        <div class="card-body">
+                            <div class="row g-3">
+                                <div class="col-md-6 col-xxl-12">
+                                    <label for="tag_input_id" class="form-label">Поиск по тэгам</label>
+                                    <select id="tag_input_id" size="3" class="form-select d-none" multiple>
+                                    </select>
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-6 col-xxl-12">
+                                    <label for="type_sort_input_id" class="form-label">Сортировать</label>
+                                    <select id="type_sort_input_id" class="form-select d-none">
+                                        <option value="CreateDesc" selected>По дате создания (сначала новые)</option>
+                                        <option value="CreateAsc">По дате создания (сначала старые)</option>
+                                        <option value="LikeAsc">По количеству лайков (по возрастанию)</option>
+                                        <option value="LikeDesc">По количеству лайков (по убыванию)</option>
+                                    </select>
+                                    <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                                </div>
+                                <div class="col-md-12 d-flex d-xxl-grid gap-2">
+                                    <button type="button" class="btn btn-primary ms-auto ms-xxl-0" id="apply_button_id" disabled>Применить</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-xxl-9 mt-3 mt-xxl-0" id="posts_container_id">
+                    <div class="card mb-3" id="post_placeholder_id">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <span class="placeholder placeholderColor col-6"></span>
+                            </div>
+                            <div class="mb-3 pb-2 border-bottom border-2">
+                                <span class="placeholder placeholderColor col-4 placeholder-lg"></span>
+                            </div>
+                            <div class="mb-3">
+                                <span class="placeholder placeholderColor col-12"></span>
+                                <span class="placeholder placeholderColor col-10"></span>
+                                <span class="placeholder placeholderColor col-11"></span>
+                                <span class="placeholder placeholderColor col-9"></span>
+                                <span class="placeholder placeholderColor col-5"></span>
+                                <span class="placeholder placeholderColor col-12"></span>
+                            </div>
+                            <div class="mb-3 text-body-secondary">
+                                <span class="placeholder placeholderColor col-1"></span>
+                                <span class="placeholder placeholderColor col-1"></span>
+                            </div>
+                            <div>
+                                <span class="placeholder placeholderColor col-2"></span>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex">
+                            <span class="me-auto">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                </svg>
+                            </span>
+                            <span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                                </svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="card mb-3 d-none" id="templ_post_id">
+                        <div class="card-body">
+                            <div class="mb-3">
+                                <span>
+                                    <span id="post_author_id"></span> - <span id="post_time_id"></span><span id="comments_text_id"> в сообществе "<span id="community_name_id"></span>"</span> 
+                                </span>
+                            </div>
+                            <div class="mb-3 pb-2 border-bottom border-2">
+                                <h4 id="post_name_id"></h4>
+                            </div>
+                            <div class="mb-3" id="image_container_id">
+                                <img src="" class="postImageSize rounded img-fluid mx-auto d-block" id="image_id">
+                            </div>
+                            <div class="mb-3"><pre class="postText m-0" id="text_post_id"></pre><span class="postLinkText" id="read_next_id">Читать дальше</span></div>
+                            <div class="text-body-secondary" id="tags_id"></div>
+                            <div>
+                                <span>Время чтения: <span id="read_time_id"></span> мин.</span>
+                            </div>
+                        </div>
+                        <div class="card-footer d-flex">
+                            <span class="me-auto">
+                                <span id="comments_count_id"></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                                </svg>
+                            </span>
+                            <span class="customCursor" id="like_button_id">
+                                <span id="likes_count_id"></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none" stroke="black" class="bi bi-heart-fill" viewBox="-1 -1 18 18">
+                                    <path stroke-width="1" fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                                </svg>                                 
+                            </span>
+                        </div>
+                    </div>
+                    <div class="text-center d-none" id="not_found_id">
+                        <p class="fs-3">Странно, но ничего не нашлось</p>
+                        <p class="lead">
+                            Попробуйте изменить критерии поиска
+                        </p>
+                    </div>
+                    <div class="text-center d-none" id="error_qeury_params_id">
+                        <p class="fs-3">Неправильные qeury параметры</p>
+                        <p class="lead">
+                            Похоже вы неправильно указали qeury параметры в url
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="paginationFooter" id="pagination_footer_id">
+        <div class="container-lg">
+            <div class="row">
+                <div class="col-xxl-3"></div>
+                <div class="col-12 col-xxl-9">
+                    <div class="row">
+                        <div class="col-12 col-sm-6 pt-4 d-flex justify-content-center justify-content-sm-start">
+                            <nav>
+                                <ul class="pagination pagination-sm">
+                                    <li class="page-item">
+                                        <a class="page-link" id="start_page_id"><span>&laquo;</span></a>
+                                    </li>    
+                                    <li class="page-item" id="insert_after_id">
+                                        <a class="page-link" id="prev_page_id"><span>&lsaquo;</span></a>
+                                    </li>
+                                    <li class="page-item" id="page_placeholder_id"><a class="page-link">1</a></li>
+                                    <li class="page-item">
+                                        <a class="page-link" id="next_page_id"><span>&rsaquo;</span></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" id="end_page_id"><span>&raquo;</span></a>
+                                    </li>  
+                                </ul>
+                            </nav> 
+                        </div>
+                        <div class="col-12 col-sm-6 pb-3 d-flex justify-content-center justify-content-sm-end">
+                            <div class="sizePageSelector">
+                                <label for="count_posts_on_page_id">Число постов на странице</label>
+                                <select class="form-select" id="count_posts_on_page_id">
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5" selected>5</option>
+                                    <option value="6">6</option>
+                                    <option value="7">7</option>
+                                    <option value="8">8</option>
+                                    <option value="9">9</option>
+                                    <option value="10">10</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="/js/community.js"></script>

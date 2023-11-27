@@ -1,6 +1,6 @@
 import { Router } from './router.js';
 
-export { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun };
+export { loadPageWithoutReload, loadPageFromCurrentUrl, includeHTML, saveInitFuncAndRun };
 
 window.myApp = window.myApp || {};
 window.myApp.listInitFuncs = window.myApp.listInitFuncs || {};

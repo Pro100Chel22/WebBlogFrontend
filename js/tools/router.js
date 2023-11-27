@@ -16,7 +16,7 @@ let Router = {
 
         for(let route in this.routes) {
             this._routes.push({
-                pattern: new RegExp('^' + route.replace(/:\w+/g,'(\\w+)') + '$'),
+                pattern: new RegExp('^' + route.replace(/:\w+/g,'((\\w|\\-)+)') + '$'), // (\\w|\\-)+
                 filePath: this.routes[route].filePath,
                 tokenVerificationResultRequired: this.routes[route].tokenVerificationResultRequired
             });

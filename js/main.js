@@ -1,10 +1,7 @@
 import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { userIsNotAuthorized } from './index.js';
 import { request } from './tools/request.js';
-import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from './tools/helpers.js';
-
-// Осталось:
-// 5) Ставить лайки   
+import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from './tools/helpers.js';  
 
 let tempPostSave;
 let notFoundSave;

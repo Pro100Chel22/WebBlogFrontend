@@ -76,3 +76,9 @@ main {
 .sizePageSelector {
     max-width: 205px;
 }
+
+@media (min-width: 768px) {
+    .custom-text-nowrap {
+        white-space: nowrap;
+    }
+}
