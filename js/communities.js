@@ -2,6 +2,7 @@ import { loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainConte
 import { userIsAuthorized, userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
 import { ADMINISTRATOR, SUBSCRIBER } from './tools/constants.js';
+import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
 
 const tempCommunity = getTemp($('#temp_community_id'));
 
@@ -73,56 +74,6 @@ function insertCommunities (container, communities, subscripbes = null) {
 
         tempCommunityCloned.appendTo(container);
     });
-}
-
-function setSubscripbeListeners (subscripbeButton, unsubscripbeButton, communityId) {
-    subscripbeButton.on('click', function () {
-        $(this).prop('disabled', true);
-        changeSubscripbe(subscripbeButton, unsubscripbeButton, communityId, true);
-    });
-
-    unsubscripbeButton.on('click', function () {
-        $(this).prop('disabled', true);
-        changeSubscripbe(subscripbeButton, unsubscripbeButton, communityId, false);
-    });
-}
-
-function changeSubscripbe (subscripbeButton, unsubscripbeButton, communityId, isSubscripbe) {
-    let token = localStorage.getItem('JWTToken');
-
-    const changeSub = (data, isSet) => {
-        console.log("Subscripbe change, isSet:", isSet, data);
-        
-        if (data.status === 200) {
-            swapSubscripbeButton(subscripbeButton, unsubscripbeButton, isSet);
-        }
-        else if (data.status === 401) {
-            userIsNotAuthorized();
-            loadPageFromCurrentUrl();
-            return;
-        }
-
-        $(subscripbeButton).prop('disabled', false);
-        $(unsubscripbeButton).prop('disabled', false);
-    }
-    
-    if (isSubscripbe) {
-        request('https://blog.kreosoft.space/api/community/' + communityId + '/subscribe', 'POST', (data) => changeSub(data, true), null, token);
-    }
-    else {
-        request('https://blog.kreosoft.space/api/community/' + communityId + '/unsubscribe', 'DELETE', (data) => changeSub(data, false), null, token);
-    }
-}
-
-function swapSubscripbeButton (subscripbeButton, unsubscripbeButton, wasSet) {
-    if (wasSet) {
-        $(subscripbeButton).addClass('d-none');
-        $(unsubscripbeButton).removeClass('d-none');
-    }
-    else {
-        $(subscripbeButton).removeClass('d-none');
-        $(unsubscripbeButton).addClass('d-none');
-    }
 }
 
 function getTemp (element) {
