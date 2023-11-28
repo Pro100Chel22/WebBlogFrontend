@@ -82,3 +82,8 @@ main {
         white-space: nowrap;
     }
 }
+
+.communityRef {
+    text-decoration: none;
+    color: inherit;
+}

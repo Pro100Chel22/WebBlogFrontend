@@ -86,4 +86,3 @@ function multipleRequest (requestInfoFirst, requestInfoSecond, callback) {
             console.error('Произошла ошибка:', error);
         });
 }
-

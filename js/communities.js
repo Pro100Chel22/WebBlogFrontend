@@ -55,12 +55,28 @@ function insertCommunities (container, communities, subscripbes = null) {
     Array.from(communities).forEach(community => {
         let tempCommunityCloned = tempCommunity.clone();
 
-        tempCommunityCloned.children().first().text(community.name);
+        let communityLinkPage = '/communities/' + community.id
+        let communityRef = $('<h3>', {
+            html: $('<a>', {
+                'class': 'communityRef',
+                'href': communityLinkPage,
+                text:  community.name 
+            })
+        });
+
+        communityRef.on('click', function (event) {
+            event.preventDefault();
+
+            loadPageWithoutReload(communityLinkPage);
+        })
+
+        communityRef.appendTo(tempCommunityCloned.children().first());
 
         if (subscripbes) {
             let subscripbe = subscripbes.find(subscripbe => community.id === subscripbe.communityId);
-            let subscripbeButton = tempCommunityCloned.children().eq(1);
-            let unsubscripbeButton = tempCommunityCloned.children().eq(2);
+            let buttonsContainer = tempCommunityCloned.children().last();
+            let subscripbeButton = buttonsContainer.children().eq(0);
+            let unsubscripbeButton = buttonsContainer.children().eq(1);
 
             setSubscripbeListeners(subscripbeButton, unsubscripbeButton, community.id);
 
