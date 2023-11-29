@@ -24,7 +24,7 @@ class RequestInfo {
     }
 }
 
-function request(url, method, callback, data = null, userToken = null) {
+async function request(url, method, callback, data = null, userToken = null) {
     let request = {
         method,
         headers: {
@@ -42,7 +42,7 @@ function request(url, method, callback, data = null, userToken = null) {
     }
 
     let status;
-    fetch(url, request)
+    await fetch(url, request)
         .then(response => {
             status = response.status;
 

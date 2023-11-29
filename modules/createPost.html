@@ -2,38 +2,48 @@
     <div class="row justify-content-center">
         <div class="col-lg-10">
             <div class="card card-body">
-                <div class="row g-3">
+                <form class="row g-3 needs-validation">
                     <h2>Написать новый пост</h2>
                     <div class="col-sm-8">
-                        <label for="name_input_id" class="form-label">Название</label>
-                        <input type="text" class="form-control d-none" id="name_input_id">
+                        <label for="name_input_id" class="form-label">Название<span class="text-danger ms-1">*</span></label>
+                        <input type="text" class="form-control d-none" id="name_input_id" required>
+                        <div class="invalid-feedback" id="email_incorrect_id">
+                            Название должно содержать минимум 5 символов.
+                        </div>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
                     <div class="col-sm-4">
-                        <label for="read_time_input_id" class="form-label">Время чтения</label>
-                        <input type="number" class="form-control d-none" id="read_time_input_id">
+                        <label for="read_time_input_id" class="form-label">Время чтения<span class="text-danger ms-1">*</span></label>
+                        <input type="number" class="form-control d-none" id="read_time_input_id" required>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
                     <div class="col-md-6">
-                        <label for="type_sort_input_id" class="form-label">Группа</label>
-                        <select id="type_sort_input_id" class="form-select d-none">
+                        <label for="community_input_id" class="form-label">Группа</label>
+                        <select id="community_input_id" class="form-select d-none">
+                            <option value="-1">Не выбрано</option>
                         </select>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
                     <div class="col-md-6">
-                        <label for="tag_input_id" class="form-label">Поиск по тэгам</label>
-                        <select id="tag_input_id" size="3" class="form-select d-none" multiple>
+                        <label for="tag_input_id" class="form-label">Тэги<span class="text-danger ms-1">*</span></label>
+                        <select id="tag_input_id" size="3" class="form-select d-none" multiple required>
                         </select>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
                     <div class="col-12">
                         <label for="img_link_input_id" class="form-label">Ссылка на картинку</label>
                         <input type="text" class="form-control d-none" id="img_link_input_id">
+                        <div class="invalid-feedback" id="email_incorrect_id">
+                            Поле изображения не является допустимым полным URL-адресом http, https или ftp.
+                        </div>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
                     <div class="col-12">
-                        <label for="text_input_id" class="form-label">Текст</label>
-                        <textarea class="form-control d-none" id="text_input_id" rows="8"></textarea>
+                        <label for="text_input_id" class="form-label">Текст<span class="text-danger ms-1">*</span></label>
+                        <textarea class="form-control d-none" id="text_input_id" rows="8" required></textarea>
+                        <div class="invalid-feedback" id="email_incorrect_id">
+                            Описание поста должно содержать минимум 5 символов.
+                        </div>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>   
                     <h3>Адрес</h3>
@@ -45,9 +55,14 @@
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
                     <div class="col-12 d-flex justify-content-end">
-                        <button type="button" class="btn btn-primary" disabled>Создать пост</button>
+                        <button type="submit" class="btn btn-primary" id="creat_post_button_id" disabled>Создать пост</button>
                     </div>
-                </div>
+                    <div class="mb-2 col-md-12 d-none" id="server_error_mess_id">
+                        <div class="invalid-feedback text-center d-block">
+                            Во время сохранения поста произошла ошибка, повторите попытку позже.
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

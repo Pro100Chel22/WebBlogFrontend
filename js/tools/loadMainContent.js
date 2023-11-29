@@ -36,7 +36,7 @@ function loadPageWithoutReload(file, usePush = true) {
         window.history.replaceState({}, "", "/");
     }
 
-    let route = Router.findFilePath(file);
+    let route = Router.findFilePath(window.location.pathname); 
     loadPageContent(route);
 }
 

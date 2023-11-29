@@ -3,7 +3,7 @@ import { userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
 import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from './tools/helpers.js';  
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
-import { ADMINISTRATOR, SUBSCRIBER } from './tools/constants.js';
+import { ADMINISTRATOR, CREAT_POST_PAGE, SUBSCRIBER } from './tools/constants.js';
 import { buildPostPage, getTags, getTemp, insertText } from './shared/posts.js';
 
 let tempAdminInfo;
@@ -115,6 +115,9 @@ function setCommunityInfo (communityInfo, isAuth = false, role = null) {
             }
             else if (role === ADMINISTRATOR) {
                 writePostButton.removeClass('d-none');
+                writePostButton.on('click', () => {
+                    loadPageWithoutReload(CREAT_POST_PAGE + `?communityId=${communityInfo.id}`)
+                });
             }
         }
 
