@@ -1,4 +1,4 @@
-import { loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
+import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { userIsAuthorized, userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
 import { ADMINISTRATOR, SUBSCRIBER } from './tools/constants.js';

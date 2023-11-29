@@ -11,6 +11,10 @@ function init() {
 
     $('#registration_page_button_id').click(() => loadPageWithoutReload("/registration"));
 
+    // $('#registration_page_button_id').click(function(){
+    //     $('#registration_page_button_id').collapse('toggle');
+    // });
+
     $('.needs-validation').on('submit', function(event) {
         event.preventDefault();
 

@@ -3,12 +3,13 @@ export { Router }
 let Router = {
     // если tokenVerificationResultRequired == false, то на страницу можно попасть только неавторизованным, если true, то только авторизованным, если null, то и так и так 
     routes: { 
-        "/": { filePath: "main.html", tokenVerificationResultRequired: null }, // :id
+        "/": { filePath: "main.html", tokenVerificationResultRequired: null },
         "/login": { filePath: "login.html", tokenVerificationResultRequired: false }, 
         "/registration": { filePath: "registration.html", tokenVerificationResultRequired: false },
         "/profile": { filePath: "profile.html", tokenVerificationResultRequired: true },
         "/communities": { filePath: "communities.html", tokenVerificationResultRequired: null },
-        "/communities/:id": { filePath: "community.html", tokenVerificationResultRequired: null }
+        "/communities/:id": { filePath: "community.html", tokenVerificationResultRequired: null },
+        "/post/create": { filePath: "createPost.html", tokenVerificationResultRequired: null }, /// true
     },
 
     init: function() {

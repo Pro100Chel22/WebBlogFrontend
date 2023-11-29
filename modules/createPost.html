@@ -1,0 +1,55 @@
+<div class="container-lg py-3">
+    <div class="row justify-content-center">
+        <div class="col-lg-10">
+            <div class="card card-body">
+                <div class="row g-3">
+                    <h2>Написать новый пост</h2>
+                    <div class="col-sm-8">
+                        <label for="name_input_id" class="form-label">Название</label>
+                        <input type="text" class="form-control d-none" id="name_input_id">
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>
+                    <div class="col-sm-4">
+                        <label for="read_time_input_id" class="form-label">Время чтения</label>
+                        <input type="number" class="form-control d-none" id="read_time_input_id">
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="type_sort_input_id" class="form-label">Группа</label>
+                        <select id="type_sort_input_id" class="form-select d-none">
+                        </select>
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>
+                    <div class="col-md-6">
+                        <label for="tag_input_id" class="form-label">Поиск по тэгам</label>
+                        <select id="tag_input_id" size="3" class="form-select d-none" multiple>
+                        </select>
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>
+                    <div class="col-12">
+                        <label for="img_link_input_id" class="form-label">Ссылка на картинку</label>
+                        <input type="text" class="form-control d-none" id="img_link_input_id">
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>
+                    <div class="col-12">
+                        <label for="text_input_id" class="form-label">Текст</label>
+                        <textarea class="form-control d-none" id="text_input_id" rows="8"></textarea>
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>   
+                    <h3>Адрес</h3>
+                    <div class="col-12 mt-0" id="level_id">
+                        <label for="search_level_input_id" class="form-label">Субъект РФ</label>
+                        <select class="form-select d-none" id="search_level_input_id">
+                            <option value="-1">Не выбрано</option>
+                        </select>
+                        <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
+                    </div>
+                    <div class="col-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" disabled>Создать пост</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="/js/createPost.js"></script>
