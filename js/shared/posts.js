@@ -2,7 +2,7 @@
 import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from "../tools/loadMainContent.js";
 import { userIsNotAuthorized } from "../index.js";
 import { request } from "../tools/request.js";
-import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from '../tools/helpers.js';  
+import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate } from '../tools/helpers.js';  
 
 export { getTags, getTemp, insertText, insertElement, buildPostPage }
 
@@ -11,14 +11,14 @@ let notFoundSave;
 let errorQeuryParamsSave;
 let urlSave;
 
-function buildPostPage (filters, url) {
+async function buildPostPage (filters, url) {
     urlSave = url;
 
     setPageSizeInput();
     setApplyButton(filters);
-    tempPostSave = getTemp($('#templ_post_id'));
-    notFoundSave = getTemp($('#not_found_id'));
-    errorQeuryParamsSave = getTemp($('#error_qeury_params_id'));
+    tempPostSave = await getTemplate('postTemplate');
+    notFoundSave = await getTemplate('postsNotFound');
+    errorQeuryParamsSave = await getTemplate('errorQeuryParams');
 
     let qeuryParams = parseQeuryParams(window.location.href);
     const size = qeuryParams.params.find(param => param.key === 'size');
@@ -131,7 +131,7 @@ function getPosts (search) {
 
 function insertPost (tempPost, postsContainer, post) {
     let cloned = tempPost.clone();
-
+    
     if (post.communityName !== null) {
         insertText(cloned, '#community_name_id', post.communityName);
     }
@@ -345,6 +345,13 @@ function getTags (filters, qeuryParams) {
             if (elementId) {
                 if (elementId === '#only_my_groups_checkbox_id') {
                     $('#only_my_groups_input_id').prop('checked', param.values[0] === 'true');
+                }
+                else if (elementId === '#type_sort_input_id') {
+                    $(elementId).val(param.values);
+
+                    if($(elementId).val() === null) {
+                        $(elementId).prop('selectedIndex', 0);
+                    }
                 }
                 else {
                     $(elementId).val(param.values);

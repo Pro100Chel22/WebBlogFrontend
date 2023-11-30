@@ -3,10 +3,13 @@ import { userIsAuthorized, userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
 import { ADMINISTRATOR, SUBSCRIBER } from './tools/constants.js';
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
+import { getTemplate } from './tools/helpers.js';
 
-const tempCommunity = getTemp($('#temp_community_id'));
+let tempCommunity;
 
-function init() {
+async function init() {
+    tempCommunity = await getTemplate('communityTemplate');
+
     getCommunities();
 }
 

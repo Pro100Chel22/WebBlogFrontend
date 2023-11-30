@@ -2,11 +2,14 @@ import { loadPageFromCurrentUrl, loadPageWithoutReload, saveInitFuncAndRun } fro
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
 import { ADMINISTRATOR, GAR_ADDRESS_LEVEL_ENUM } from './tools/constants.js';
 import { userIsNotAuthorized } from './index.js';
-import { parseQeuryParams } from './tools/helpers.js';
+import { getTemplate, parseQeuryParams } from './tools/helpers.js';
 
 let elementsArr;
+let tempSearchElement;
 
-function init() {
+async function init() {
+    tempSearchElement = await getTemplate('searchTemplate');
+
     elementsArr = [ { container: null, input: $('#search_level_input_id'), label: null, levelId: '#level_id' } ];
 
     getGroupsAndTags();
@@ -250,31 +253,18 @@ function updateLable (label, levelTypes) {
         labelText += (index > 0 ? ', ' : '') + GAR_ADDRESS_LEVEL_ENUM[type];
     })
 
-    label.text(labelText);
+    label.text(labelText.length > 0 ? labelText : 'Следующий элемент адреса');
 }
 
 function creatSearchElements (level) {
-    let selectLabel = $('<label>', {
-        'class': 'form-label'
-    })
+    let searchContainer = tempSearchElement.clone();
 
-    let select = $('<select>', {
-        'class': 'form-select',
-        html: $('<option>', {
-            'class': 'form-label',
-            value: '-1',
-            text: 'Не выбрано'
-        })
-    })
+    let selectLabel = searchContainer.children().first();
+    let select = searchContainer.children().last();
 
-    let searchContainer = $('<div>', {
-        'class': 'col-12 mt-2',
-        id: `${level}_level_id`,
-        html: [
-            selectLabel,
-            select
-        ]
-    });
+    searchContainer.prop('id', `${level}_level_id`);
+
+    console.log(selectLabel, select, searchContainer);
 
     return { selectLabel, select, searchContainer };
 }

@@ -13,7 +13,8 @@ export {
     changeDateFormat,
     changeDateTimeFormat,
     parseQeuryParams,
-    buildNumerationPage
+    buildNumerationPage,
+    getTemplate
 }
 
 function dateConvertToUTCWithSmooth(dateStr, dH = 0, dM = 0, dS = 0) {
@@ -148,4 +149,13 @@ function buildNumerationPage (pagination, sides = 2) {
     }
 
     return { leftPage, rightPage };
+}
+
+async function getTemplate (file) {
+    let xhr = new XMLHttpRequest();
+    
+    xhr.open('GET', "/modules/templates/" + file + '.html', false);
+    xhr.send();
+
+    return $(xhr.responseText);
 }

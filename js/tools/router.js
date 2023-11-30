@@ -1,4 +1,4 @@
-import { CREAT_POST_PAGE } from "./constants.js"
+import { CREAT_POST_PAGE, POST_INFO_ID_PAGE } from "./constants.js"
 
 export { Router }
 
@@ -11,7 +11,8 @@ let Router = {
         "/profile": { filePath: "profile.html", tokenVerificationResultRequired: true },
         "/communities": { filePath: "communities.html", tokenVerificationResultRequired: null },
         "/communities/:id": { filePath: "community.html", tokenVerificationResultRequired: null },
-        [CREAT_POST_PAGE]: { filePath: "createPost.html", tokenVerificationResultRequired: true }, /// true
+        [POST_INFO_ID_PAGE]: { filePath: "post.html", tokenVerificationResultRequired: null },
+        [CREAT_POST_PAGE]: { filePath: "createPost.html", tokenVerificationResultRequired: true },
     },
 
     init: function() {

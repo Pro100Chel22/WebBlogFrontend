@@ -1,0 +1,132 @@
+<div class="container-lg py-3">
+    <div class="card mb-3" id="post_placeholder_id">
+        <div class="card-body">
+            <div class="mb-3">
+                <span class="placeholder placeholderColor col-6"></span>
+            </div>
+            <div class="mb-3 pb-2 border-bottom border-2">
+                <span class="placeholder placeholderColor col-4 placeholder-lg"></span>
+            </div>
+            <div class="mb-3">
+                <span class="placeholder placeholderColor col-12"></span>
+                <span class="placeholder placeholderColor col-10"></span>
+                <span class="placeholder placeholderColor col-11"></span>
+                <span class="placeholder placeholderColor col-9"></span>
+                <span class="placeholder placeholderColor col-5"></span>
+                <span class="placeholder placeholderColor col-12"></span>
+            </div>
+            <div class="mb-3 text-body-secondary">
+                <span class="placeholder placeholderColor col-1"></span>
+                <span class="placeholder placeholderColor col-1"></span>
+            </div>
+            <div>
+                <span class="placeholder placeholderColor col-2"></span>
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            <span class="me-auto">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </span>
+            <span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+                    <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15"/>
+                </svg>
+            </span>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="mb-3">
+                <span>
+                    <span id="post_author_id"></span> - <span id="post_time_id"></span><span id="comments_text_id"> в сообществе "<span id="community_name_id"></span>"</span> 
+                </span>
+            </div>
+            <div class="mb-3 pb-2 border-bottom border-2">
+                <h4 id="post_name_id"></h4>
+            </div>
+            <div class="mb-3" id="image_container_id">
+                <img src="" class="postImageSize rounded img-fluid mx-auto d-block" id="image_id">
+            </div>
+            <div class="text-body-secondary" id="tags_id"></div>
+            <div>
+                <span>Время чтения: <span id="read_time_id"></span> мин.</span>
+            </div>
+            <div id="address_container_id">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-geo-alt-fill" viewBox="0 0 16 16">
+                    <path d="M8 16s6-5.686 6-10A6 6 0 0 0 2 6c0 4.314 6 10 6 10m0-7a3 3 0 1 1 0-6 3 3 0 0 1 0 6"/>
+                </svg>
+                <span id="address_id"></span>
+            </div>
+        </div>
+        <div class="card-footer d-flex">
+            <span class="me-auto">
+                <span id="comments_count_id"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="black" class="bi bi-chat-left-text" viewBox="0 0 16 16">
+                    <path d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2z"/>
+                    <path d="M3 3.5a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9a.5.5 0 0 1-.5-.5M3 6a.5.5 0 0 1 .5-.5h9a.5.5 0 0 1 0 1h-9A.5.5 0 0 1 3 6m0 2.5a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 0 1h-5a.5.5 0 0 1-.5-.5"/>
+                </svg>
+            </span>
+            <span class="customCursor" id="like_button_id">
+                <span id="likes_count_id"></span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="19" height="19" fill="none" stroke="black" class="bi bi-heart-fill" viewBox="-1 -1 18 18">
+                    <path stroke-width="1" fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314"/>
+                </svg>                                 
+            </span>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="mb-3">
+                <h5>Комментарии</h5>
+            </div>
+            <div id="comments_container_id">
+                <div class="text-body-secondary d-none" id="zero_comment_id">
+                    Комментарии отсутсвуют
+                </div>
+                <div class="mb-3" id="comment_templ_id">
+                    <div class="mb-1" id="comment_author_id">
+                        Xexi
+                    </div>
+                    <div class="fs-5 mb-1" >
+                        <span id="comment_content_id">Да здраствует пиво!</span>
+                        <div class="input-group d-none" id="edit_comment_id">
+                            <input type="text" class="form-control" value="Да здраствует пиво!">
+                            <button class="btn btn-warning" type="button">Редактировать</button>
+                        </div>
+                    </div>
+                    <div class="mb-1">
+                        <span id="comment_time_id">19.12.2022 17:02</span><span class="postLinkText ms-1" id="comment_answer_id">Ответить</span>
+                        <div class="input-group d-none">
+                            <input type="text" class="form-control" placeholder="Оставьте комментарий...">
+                            <button class="btn btn-primary" type="button">Отправить</button>
+                        </div>
+                    </div>
+                    <div>
+                        <span class="postLinkText" id="open_subcomments_id">Раскрыть ответы</span>
+                        <div class="border-start border-5 ps-3" id="suncomments_container_id">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="mb-2">
+                <label for="comment_input_id" class="form-label text-body-secondary">Оставьте комментарий</label>
+                <textarea class="form-control" id="comment_input_id" rows="5"></textarea>
+            </div>
+            <div class="d-flex justify-content-end">
+                <button type="submit" class="btn btn-primary" id="save_button_id">Отправить</button>
+                <button class="btn btn-primary d-none" type="button" id="placholder_buttom_id">
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    <span role="status">Отправка</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="module" src="/js/post.js"></script>

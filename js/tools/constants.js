@@ -1,11 +1,11 @@
-export { CREAT_POST_PAGE, SUBSCRIBER, ADMINISTRATOR, GAR_ADDRESS_LEVEL_ENUM }
+export const CREAT_POST_PAGE = "/post/create";
+export const POST_INFO_PAGE = "/post/";
+export const POST_INFO_ID_PAGE = POST_INFO_PAGE + ':id'
 
-const CREAT_POST_PAGE = "/post/create";
+export const SUBSCRIBER = 'Subscriber';
+export const ADMINISTRATOR = 'Administrator';
 
-const SUBSCRIBER = 'Subscriber';
-const ADMINISTRATOR = 'Administrator';
-
-const GAR_ADDRESS_LEVEL_ENUM = {
+export const GAR_ADDRESS_LEVEL_ENUM = {
     Region: "Субъект РФ",
     AdministrativeArea: "Административный район",
     MunicipalArea: "Муниципальный район", 

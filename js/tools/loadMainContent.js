@@ -6,7 +6,7 @@ window.myApp = window.myApp || {};
 window.myApp.listInitFuncs = window.myApp.listInitFuncs || {};
 
 function includeHTML(file) {
-    var xhr = new XMLHttpRequest();
+    let xhr = new XMLHttpRequest();
     
     xhr.open('GET', "/modules/" + file, true);
 
@@ -50,19 +50,19 @@ function loadPageContent(route) {
         let requirement = route.tokenVerificationResultRequired;
 
         if (requirement !== null && window.myApp.tokenVerificationResult !== requirement) {
-            loadPageWithoutReload("/", false);
+            loadPageWithoutReload('/', false);
         }
         else {
             includeHTML(route.filePath);
         }
     } 
     else {
-        includeHTML("error.html");
+        includeHTML('notFound.html');
     }
 }
 
 function saveInitFuncAndRun(initFunc) {
-    $('#main_container').find("script").each(function(index, script) {
+    $('#main_container').find('script').each(function(index, script) {
         let filePath = $(script).attr('src');
     
         window.myApp.listInitFuncs[filePath] = initFunc;

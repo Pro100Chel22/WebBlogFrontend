@@ -1,20 +1,20 @@
 import { loadPageWithoutReload, loadPageFromCurrentUrl,  saveInitFuncAndRun, includeHTML } from './tools/loadMainContent.js';
 import { userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
-import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage } from './tools/helpers.js';  
+import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate } from './tools/helpers.js';  
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
 import { ADMINISTRATOR, CREAT_POST_PAGE, SUBSCRIBER } from './tools/constants.js';
-import { buildPostPage, getTags, getTemp, insertText } from './shared/posts.js';
+import { buildPostPage, getTags, insertText } from './shared/posts.js';
 
 let tempAdminInfo;
 
-function init () {
+async function init () {
     const filters = [
         { id: '#tag_input_id', param: 'tags' }, 
         { id: '#type_sort_input_id', param: 'sorting' }, 
     ];
 
-    tempAdminInfo = getTemp($('#temp_admin_id'));
+    tempAdminInfo = await getTemplate('adminInfoTemplate');
     loadCommunity(filters);
 }
 
@@ -33,7 +33,7 @@ function loadCommunity (filters) {
                 $('#community_page_id').removeClass('d-none');
             }
             else {
-                includeHTML("error.html");
+                includeHTML('notFound.html');
             }
         }
     
@@ -55,7 +55,7 @@ function loadCommunity (filters) {
                 $('#community_page_id').removeClass('d-none');
             }
             else {
-                includeHTML("error.html");
+                includeHTML('notFound.html');
             }
         }
     
