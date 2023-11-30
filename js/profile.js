@@ -88,7 +88,7 @@ function putDataToForm (mask, formsId) {
 }
 
 function offInputPlaceholders (formsId) {
-    $('.needs-off').addClass('d-none');;
+    $('.needs-off').addClass('d-none');
     
     Array.from(formsId).forEach(inputs => {
         $(inputs).removeClass('d-none');
