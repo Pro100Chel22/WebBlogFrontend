@@ -3,10 +3,12 @@ import { includeHTML, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { request } from './tools/request.js';
 import { setLikeListener } from './shared/likeButtonListeners.js';
 
-let tempComment
+let tempComment;
+let openedSubcomments;
 
 async function init() {
     tempComment = await getTemplate('commentTemplate');
+    openedSubcomments = null;
 
     getPost();
 }
@@ -102,12 +104,24 @@ function setCommentListener (postId) {
 
         const postComment = (data) => {
             console.log("comment post", data);
+
+            if (data.status === 200) {
+                $('#comment_input_id').val('');
+
+                updateComments();
+            }
+
+            $('#save_button_id').removeClass('d-none');
+            $('#placholder_buttom_id').addClass('d-none');
         }
         
         const body = {
             "content": $('#comment_input_id').val()
         }
-    
+
+        $('#save_button_id').addClass('d-none');
+        $('#placholder_buttom_id').removeClass('d-none');
+
         request('https://blog.kreosoft.space/api/post/' + postId + '/comment', 'POST', postComment, body, localStorage.getItem('JWTToken'));
     });
 }
@@ -117,38 +131,114 @@ function insertComment (container, comment, isAuth) {
 
     let cloned = tempComment.clone();
 
-    //   edit_comment_input_id comment_answer_id comment_answer_input_id open_subcomments_id suncomments_container_id
-
-    insertText (cloned, '#comment_author_id', comment.author);
-    insertText (cloned, '#comment_content_id', comment.content);
+    if (comment.deleteDate) {
+        let deleteDate = 'Удален ' + changeDateTimeFormat(comment.deleteDate);
+        insertText (cloned, '#comment_author_id', '[Комментарий удален]', deleteDate);
+        insertText (cloned, '#comment_content_id', '[Комментарий удален]', deleteDate);
+    }
+    else {
+        insertText (cloned, '#comment_author_id', comment.author);
+        insertText (cloned, '#comment_content_id', comment.content);
+    }
     insertText (cloned, '#comment_time_id', changeDateTimeFormat(comment.createTime));
 
-    // insertText (cloned, '#1111', comment.content);
-    // insertText (cloned, '#1111', comment.content);
+    if (comment.modifiedDate) {
+        let modifiedDate = 'Изменен ' + changeDateTimeFormat(comment.modifiedDate);
+        cloned.find('#changed_id').removeClass('d-none');
+        cloned.find('#changed_id').attr('title', modifiedDate);
+        cloned.find('#changed_id').removeAttr('id');
+    }
+    else {
+        cloned.find('#changed_id').remove();
+    }
+    
+    if (comment.subComments > 0) {
+        cloned.find('#subcomments_count_id').text(comment.subComments);
+        cloned.find('#subcomments_count_id').removeAttr('id');
+        setOpenSubcommentsListener(cloned.find('#open_subcomments_id'), cloned.find('#suncomments_container_id'), comment.id);
+    }
+    else {
+        cloned.find('#open_subcomments_id').remove();
+        cloned.find('#suncomments_container_id').remove();
+    }
+
+    if (isAuth) {
+
+    }
+    else {
+        cloned.find('#comment_answer_id').remove();
+    }
 
     container.append(cloned);
-
-// createTime
-// : 
-// "2023-11-29T22:36:25.5982316"
-// deleteDate
-// : 
-// "2023-11-29T22:41:21.6197595"
-// id
-// : 
-// "780f3877-2228-4352-e246-08dbf0ca96f9"
-// modifiedDate
-// : 
-// "2023-11-29T22:41:21.6199721"
-// subComments
-// : 
-// 1
 }
 
-function insertText (element, elementId, text) {
+function setOpenSubcommentsListener (element, container, commentId, idAuth) {
+    element.removeAttr('id');
+    container.removeAttr('id');
+
+    element.on('click', function () {
+        if (element.attr('off')) {
+            return;
+        }
+
+        if (openedSubcomments) {
+            openedSubcomments.container.empty();
+            openedSubcomments.element.removeClass('d-none');
+        }
+
+        element.attr('off', true);
+
+        const getSubcomments = (data) => {
+            console.log("subcomments get", data);
+
+            if (data.status === 200) {
+                $(element).addClass('d-none');
+
+                data.body.forEach(comment => {
+                    comment.subComments = 0;
+                    insertComment(container, comment, idAuth);
+                })
+
+                openedSubcomments = { element, container, commentId };
+            }
+
+            element.removeAttr('off');
+        }
+        
+        request('https://blog.kreosoft.space/api/comment/' + commentId + '/tree', 'GET', getSubcomments);
+    });
+}
+
+function updateComments () {
+    // insertComment($('#comments_container_id'), comment, window.myApp.tokenVerificationResult);
+
+    let postId = window.location.pathname.split('/').pop();
+
+    if (openedSubcomments) {
+
+    }
+    else {
+        const loadPost = (data) => {
+            console.log("post get", data);
+    
+            if (data.status === 200) {
+                
+            }
+        }
+    
+        request('https://blog.kreosoft.space/api/post/' + postId, 'GET', loadPost, null, localStorage.getItem('JWTToken'));
+    }
+}
+
+function insertText (element, elementId, text, title = null) {
     let content = element.find(elementId);
     content.text(text);
     content.removeAttr('id');
+
+    if (title) {
+        content.attr('title', title);
+    }
+
     return content;
 }
 

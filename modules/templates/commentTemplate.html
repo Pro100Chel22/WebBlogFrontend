@@ -1,7 +1,7 @@
 <div class="mb-3" id="comment_templ_id">
     <div class="mb-1" id="comment_author_id"></div>
-    <div class="fs-5 mb-1" >
-        <span id="comment_content_id"></span>
+    <div class="mb-1">
+        <span class="fs-5" id="comment_content_id"></span><span class="fs-6 ms-1 d-none" id="changed_id">(изменен)</span>
         <div class="input-group d-none" id="edit_comment_input_id">
             <input type="text" class="form-control">
             <button class="btn btn-warning" type="button">Редактировать</button>
@@ -15,7 +15,7 @@
         </div>
     </div>
     <div>
-        <span class="postLinkText" id="open_subcomments_id">Раскрыть ответы</span>
+        <span class="postLinkText" id="open_subcomments_id">Раскрыть ответы (<span id="subcomments_count_id"></span>)</span>
         <div class="border-start border-5 ps-3" id="suncomments_container_id">
         </div>
     </div>
