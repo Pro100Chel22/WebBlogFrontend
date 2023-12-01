@@ -68,10 +68,10 @@ async function insertPost (post) {
     
             let str = "";
             data.body.forEach(addr => {
-                str += addr.text + ' ';
+                str += addr.text + ', ';
             });
     
-            $('#address_id').text(str);
+            $('#address_id').text(str.slice(0, str.length - 2));
         }
     
         await request('https://blog.kreosoft.space/api/address/chain?objectGuid=' + post.addressId, 'GET', loadAddress);
@@ -110,6 +110,16 @@ async function insertPost (post) {
     }
 
     $('#post_container_id').removeClass('d-none');
+
+    const hash = window.location.hash;
+    if (hash && hash === '#comments') {
+        const targetElement = $('#comments_id');
+        if (targetElement) {
+            $('html, body').animate({
+                scrollTop: targetElement.offset().top + 300
+            }, 1000); 
+        }
+    }
 }
 
 function setCommentListener (postId) {

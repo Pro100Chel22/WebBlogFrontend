@@ -133,7 +133,7 @@ function setCreatPostListener (inputsId) {
             console.log("post create post", communityId, data);
 
             if (data.status === 200) {
-                loadPageWithoutReload('/');
+                loadPageWithoutReload('/post/' + data.body);
             }
             else if (data.status === 400) {
                 if (data.body?.errors?.Image ?? false) {

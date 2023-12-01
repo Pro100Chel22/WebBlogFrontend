@@ -172,16 +172,30 @@ function insertPost (tempPost, postsContainer, post) {
     if (window.myApp.tokenVerificationResult) {
         setLikeListener(cloned.find('#like_button_id'), post.likes, post.hasLike, post.id);
     }
-
-    insertText(cloned, '#post_name_id', post.title);
+    
     insertText(cloned, '#post_author_id', post.author);
     insertText(cloned, '#post_time_id', changeDateTimeFormat(post.createTime));
     insertText(cloned, '#read_time_id', post.readingTime);
-    insertText(cloned, '#comments_count_id', post.commentsCount);
     insertText(cloned, '#likes_count_id', post.likes);
     insertTags(cloned, '#tags_id', post.tags);
+
+    setLink(cloned.find('#post_name_id'), '/post/' + post.id); 
+    insertText(cloned, '#post_name_id', post.title);
+
+    setLink(cloned.find('#comment_post_page_id'), '/post/' + post.id + '#comments');
+    insertText(cloned, '#comments_count_id', post.commentsCount);
+    cloned.find('#comment_post_page_id').removeAttr('id');
     
     cloned.appendTo(postsContainer);
+}
+
+function setLink (element, link) {
+    element.attr('href', link);
+
+    element.on('click', function (event) {
+        event.preventDefault();
+        loadPageWithoutReload(link);
+    });
 }
 
 function insertTags (element, tagsContainerId, tags) {
