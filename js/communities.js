@@ -46,7 +46,7 @@ function getCommunities () {
                 insertCommunities(container, data.body);
             }
             else {
-                container.text("Произошла ошибка");
+                container.text("Произошла ошибка"); ////////////////////////////
             }
         }
     

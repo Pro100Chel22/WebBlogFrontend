@@ -52,14 +52,19 @@
             </div>
         </div>
     </div>
-    <div class="card mb-3" id="write_comment_id">
-        <div class="card-body">
+    <div class="card mb-3" id="write_post_comment_id">
+        <div class="card-body" >
             <form class="needs-validation">
                 <div class="mb-3">
                     <label for="comment_input_id" class="form-label text-body-secondary">Оставьте комментарий</label>
-                    <textarea class="form-control" id="comment_input_id" rows="5" required></textarea>
+                    <textarea class="form-control" id="comment_input_id" rows="5"></textarea>
                     <div class="invalid-feedback">
-                        Комментарий должен быть не менее 1 символа.
+                        Комментарий должен быть не менее 1 символа и не больше 1000.
+                    </div>
+                </div>
+                <div class="mb-2 col-md-12 d-none" id="server_error_mess_id">
+                    <div class="invalid-feedback text-center d-block">
+                        Во время сохранения комментария произошла ошибка, повторите попытку позже.
                     </div>
                 </div>
                 <div class="d-flex justify-content-end">

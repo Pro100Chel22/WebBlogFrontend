@@ -1,4 +1,5 @@
 import IMask from '../../node_modules/imask/esm/index.js';
+import { jwtDecode } from '../../node_modules/jwt-decode/build/esm/index.js';
 
 export { 
     dateConvertToUTCWithSmooth, 
@@ -14,7 +15,8 @@ export {
     changeDateTimeFormat,
     parseQeuryParams,
     buildNumerationPage,
-    getTemplate
+    getTemplate,
+    getUserId
 }
 
 function dateConvertToUTCWithSmooth(dateStr, dH = 0, dM = 0, dS = 0) {
@@ -158,4 +160,10 @@ async function getTemplate (file) {
     xhr.send();
 
     return $(xhr.responseText);
+}
+
+function getUserId (jwtToken) {
+    const decoded = jwtDecode(jwtToken); 
+
+    return decoded.nameid ?? null;
 }

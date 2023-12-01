@@ -7,3 +7,6 @@
 
 Для добавления IMask 
 npm install imask
+
+Для декодера
+npm install jsonwebtoken
