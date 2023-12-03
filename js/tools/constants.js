@@ -1,6 +1,7 @@
 export const CREAT_POST_PAGE = "/post/create";
 export const POST_INFO_PAGE = "/post/";
 export const POST_INFO_ID_PAGE = POST_INFO_PAGE + ':id'
+export const AUTHORS_PAGE = '/authors'
 
 export const SUBSCRIBER = 'Subscriber';
 export const ADMINISTRATOR = 'Administrator';

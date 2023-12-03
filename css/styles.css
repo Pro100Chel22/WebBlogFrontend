@@ -87,3 +87,49 @@ main {
     text-decoration: none;
     color: inherit;
 }
+
+.adminImage {
+    width: 60px; 
+    height: 60px;
+}
+
+.authorsImageContainer {
+    width: 80px;
+    height: 80px;
+}
+
+.authorsImage {
+    width: 75%;
+}
+
+.topImage {
+    width: 45%;
+}
+
+@media (max-width: 400px) {
+    .custom-col {
+        flex-grow: initial;
+        flex-shrink: 1; 
+        flex-basis: auto; 
+        
+    }
+
+    .contantCenter {
+        justify-content: center!important;
+    }
+
+    .authorsImageContainer {
+        width: 100vw;
+        height: 85vw;
+        align-items: end!important;
+        justify-content: center!important;
+    }
+
+    .authorsImage {
+        width: 80%;
+    }
+
+    .topImage {
+        width: 35%;
+    }
+}

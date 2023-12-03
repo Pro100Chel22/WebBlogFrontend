@@ -1,3 +1,4 @@
+import { AUTHORS_PAGE } from './tools/constants.js';
 import { loadPageFromCurrentUrl, loadPageWithoutReload } from './tools/loadMainContent.js';
 import { request } from './tools/request.js';
 
@@ -54,7 +55,7 @@ function userIsNotAuthorized () {
 function init() {
     $('#logo_button_id').click(() => loadPageWithoutReload("/"));
     $('#main_page_button_id').click(() => loadPageWithoutReload("/"));
-    $('#author_page_button_id').click(() => loadPageWithoutReload("/"));
+    $('#author_page_button_id').click(() => loadPageWithoutReload(AUTHORS_PAGE));
     $('#community_page_button_id').click(() => loadPageWithoutReload("/communities"));
     $('#login_page_button_id').click(() => loadPageWithoutReload("/login"));
     $('#profile_page_button_id').click(() => loadPageWithoutReload("/profile"));

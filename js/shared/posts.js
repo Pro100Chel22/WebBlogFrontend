@@ -148,9 +148,17 @@ function insertPost (tempPost, postsContainer, post) {
     else {
         cloned.find('#image_container_id').remove();
     }
+    
+    if (post.description.length > 500 || (post.description.match(/\n/g) || []).length > 10) {
+        let textContainet;
 
-    if (post.description.length > 500) {
-        let textContainet = insertText(cloned, '#text_post_id', post.description.slice(0, 500) + '...');
+        if (post.description.length > 500) {
+            textContainet = insertText(cloned, '#text_post_id', post.description.slice(0, 500) + '...');
+        }
+        else {
+            textContainet = insertText(cloned, '#text_post_id', post.description.split('\n').slice(0, 10).join('\n') + '...');
+        }
+
         cloned.find('#read_next_id').on('click', function() {
             textContainet.text(post.description);
             $(this).remove();

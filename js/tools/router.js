@@ -1,4 +1,4 @@
-import { CREAT_POST_PAGE, POST_INFO_ID_PAGE } from "./constants.js"
+import { AUTHORS_PAGE, CREAT_POST_PAGE, POST_INFO_ID_PAGE } from "./constants.js"
 
 export { Router }
 
@@ -13,6 +13,7 @@ let Router = {
         "/communities/:id": { filePath: "community.html", tokenVerificationResultRequired: null },
         [POST_INFO_ID_PAGE]: { filePath: "post.html", tokenVerificationResultRequired: null },
         [CREAT_POST_PAGE]: { filePath: "createPost.html", tokenVerificationResultRequired: true },
+        [AUTHORS_PAGE]: { filePath: "authors.html", tokenVerificationResultRequired: null }
     },
 
     init: function() {
