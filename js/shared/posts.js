@@ -1,7 +1,7 @@
 import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from "../tools/loadMainContent.js";
 import { userIsNotAuthorized } from "../index.js";
 import { request } from "../tools/request.js";
-import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate } from '../tools/helpers.js';  
+import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate, setLink } from '../tools/helpers.js';  
 import { setLikeListener } from "./likeButtonListeners.js";
 
 export { getTags, getTemp, insertText, insertElement, buildPostPage }
@@ -195,15 +195,6 @@ function insertPost (tempPost, postsContainer, post) {
     cloned.find('#comment_post_page_id').removeAttr('id');
     
     cloned.appendTo(postsContainer);
-}
-
-function setLink (element, link) {
-    element.attr('href', link);
-
-    element.on('click', function (event) {
-        event.preventDefault();
-        loadPageWithoutReload(link);
-    });
 }
 
 function insertTags (element, tagsContainerId, tags) {

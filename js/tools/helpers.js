@@ -1,5 +1,6 @@
 import IMask from '../../node_modules/imask/esm/index.js';
 import { jwtDecode } from '../../node_modules/jwt-decode/build/esm/index.js';
+import { loadPageWithoutReload } from './loadMainContent.js';
 
 export { 
     dateConvertToUTCWithSmooth, 
@@ -16,7 +17,8 @@ export {
     parseQeuryParams,
     buildNumerationPage,
     getTemplate,
-    getUserId
+    getUserId,
+    setLink
 }
 
 function dateConvertToUTCWithSmooth(dateStr, dH = 0, dM = 0, dS = 0) {
@@ -91,8 +93,8 @@ function phoneMask(phoneInput) {
     });
 }
 
-function changeDateFormat(date) {
-    return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}-${String(date.getDate()).padStart(2, '0')}`
+function changeDateFormat(date, sep= '-') {
+    return `${date.getFullYear()}${sep}${String(date.getMonth() + 1).padStart(2, '0')}${sep}${String(date.getDate()).padStart(2, '0')}`
 }
 
 function changeDateTimeFormat (dateString) {
@@ -166,4 +168,13 @@ function getUserId (jwtToken) {
     const decoded = jwtDecode(jwtToken); 
 
     return decoded.nameid ?? null;
+}
+
+function setLink (element, link) {
+    element.attr('href', link);
+
+    element.on('click', function (event) {
+        event.preventDefault();
+        loadPageWithoutReload(link);
+    });
 }

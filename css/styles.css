@@ -96,6 +96,7 @@ main {
 .authorsImageContainer {
     width: 80px;
     height: 80px;
+    padding: .5rem!important;
 }
 
 .authorsImage {
@@ -106,7 +107,15 @@ main {
     width: 45%;
 }
 
-@media (max-width: 400px) {
+@media (max-width: 768px) {
+    .authorsImageContainer {
+        width: 90px;
+        height: 90px;
+        padding: .5rem!important;
+    }
+}
+
+@media (max-width: 450px) {
     .custom-col {
         flex-grow: initial;
         flex-shrink: 1; 
@@ -116,6 +125,7 @@ main {
 
     .contantCenter {
         justify-content: center!important;
+        text-align: center;
     }
 
     .authorsImageContainer {
