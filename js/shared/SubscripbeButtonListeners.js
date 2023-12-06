@@ -34,7 +34,10 @@ function changeSubscripbe (subscripbeButton, unsubscripbeButton, communityId, is
             loadPageFromCurrentUrl();
             return;
         }
-
+        else {
+            bootstrap.Toast.getOrCreateInstance($('#liveToast')).show();
+        }
+        
         $(subscripbeButton).prop('disabled', false);
         $(unsubscripbeButton).prop('disabled', false);
     }

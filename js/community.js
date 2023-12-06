@@ -3,7 +3,7 @@ import { userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
 import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate } from './tools/helpers.js';  
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
-import { ADMINISTRATOR, CREAT_POST_PAGE, SUBSCRIBER } from './tools/constants.js';
+import { ADMINISTRATOR, CREAT_POST_PAGE, INTERNAL_SERVER_ERROR, NOT_FOUND_ERROR, SUBSCRIBER } from './tools/constants.js';
 import { buildPostPage, getTags, insertText } from './shared/posts.js';
 
 let tempAdminInfo;
@@ -32,8 +32,11 @@ function loadCommunity (filters) {
     
                 $('#community_page_id').removeClass('d-none');
             }
+            else if (data.status[0] === 404) {
+                includeHTML(NOT_FOUND_ERROR);
+            }
             else {
-                includeHTML('notFound.html');
+                includeHTML(INTERNAL_SERVER_ERROR);
             }
         }
     
@@ -54,8 +57,11 @@ function loadCommunity (filters) {
     
                 $('#community_page_id').removeClass('d-none');
             }
+            else if (data.status === 404) {
+                includeHTML(NOT_FOUND_ERROR);
+            }
             else {
-                includeHTML('notFound.html');
+                includeHTML(INTERNAL_SERVER_ERROR);
             }
         }
     

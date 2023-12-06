@@ -1,6 +1,7 @@
 import { AUTHORS_PAGE } from './tools/constants.js';
 import { loadPageFromCurrentUrl, loadPageWithoutReload } from './tools/loadMainContent.js';
 import { request } from './tools/request.js';
+import { setLink } from './tools/helpers.js'
 
 export { userIsAuthorized, userIsNotAuthorized };
 
@@ -53,12 +54,19 @@ function userIsNotAuthorized () {
 }
 
 function init() {
-    $('#logo_button_id').click(() => loadPageWithoutReload("/"));
-    $('#main_page_button_id').click(() => loadPageWithoutReload("/"));
-    $('#author_page_button_id').click(() => loadPageWithoutReload(AUTHORS_PAGE));
-    $('#community_page_button_id').click(() => loadPageWithoutReload("/communities"));
-    $('#login_page_button_id').click(() => loadPageWithoutReload("/login"));
-    $('#profile_page_button_id').click(() => loadPageWithoutReload("/profile"));
+    setLink($('#logo_button_id'), '/');
+    setLink($('#main_page_button_id'), '/');
+    setLink($('#author_page_button_id'), AUTHORS_PAGE);
+    setLink($('#community_page_button_id'), "/communities");
+    setLink($('#login_page_button_id'), "/login");
+    setLink($('#profile_page_button_id'), "/profile");
+
+    // $('#logo_button_id').click(() => loadPageWithoutReload("/"));
+    // $('#main_page_button_id').click(() => loadPageWithoutReload("/"));
+    // $('#author_page_button_id').click(() => loadPageWithoutReload(AUTHORS_PAGE));
+    // $('#community_page_button_id').click(() => loadPageWithoutReload("/communities"));
+    //$('#login_page_button_id').click(() => loadPageWithoutReload("/login"));
+    //$('#profile_page_button_id').click(() => loadPageWithoutReload("/profile"));
     $('#logout_button_id').click(() => {
         const userToken = localStorage.getItem('JWTToken');
         const logout = (data) => {
@@ -73,5 +81,3 @@ function init() {
         request('https://blog.kreosoft.space/api/account/logout', 'POST', logout, null, userToken);
     });
 }
-
-// localStorage.setItem('JWTToken', "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJuYW1laWQiOiI1ZTY4Njg4Yi00ZmU3LTQ1NjQtNmY5ZC0wOGRiZTc4ZjAyYmIiLCJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9hdXRoZW50aWNhdGlvbiI6IjMzYzBlNmIzLTNmNWEtNDcwNC1hYjRjLTU2MjhhYjlkNjdjYyIsIm5iZiI6MTcwMDQwMjQ2OCwiZXhwIjoxNzAwNDA2MDY4LCJpYXQiOjE3MDA0MDI0NjgsImlzcyI6IkJsb2cuQVBJIiwiYXVkIjoiQmxvZy5BUEkifQ.lvw50fr4MuAvEU2KN0kmYPPi-sANQtk2sfF-apxW4W0");

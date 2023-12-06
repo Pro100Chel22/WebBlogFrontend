@@ -14,8 +14,9 @@ function setLikeListener (element, likesCount, hasLike, postId) {
             loadPageFromCurrentUrl();
             return;
         }
-        else if (data.status !== 400) {
+        else {
             changeLikeOnClient(context, !isSet, likesCount, hasLike, false);
+            bootstrap.Toast.getOrCreateInstance($('#liveToast')).show();
         }
     };
 

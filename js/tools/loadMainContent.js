@@ -33,7 +33,7 @@ function loadPageWithoutReload(file, usePush = true) {
         window.history.pushState({}, "", file);
     }
     else {
-        window.history.replaceState({}, "", "/");
+        window.history.replaceState({}, "", file);
     }
 
     let route = Router.findFilePath(window.location.pathname); 
@@ -50,7 +50,12 @@ function loadPageContent(route) {
         let requirement = route.tokenVerificationResultRequired;
 
         if (requirement !== null && window.myApp.tokenVerificationResult !== requirement) {
-            loadPageWithoutReload('/', false);
+            if (requirement) {
+                loadPageWithoutReload('/login', false);
+            }
+            else {
+                loadPageWithoutReload('/', false);
+            }
         }
         else {
             includeHTML(route.filePath);

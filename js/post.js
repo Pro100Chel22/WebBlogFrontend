@@ -321,8 +321,13 @@ function setDeleteButton (element, serverError, commentId) {
 
         let deleteComment = (data) => {
             console.log('comment delete', data);
-
+            
             if (data.status === 200) {
+                if (openedSubcomments && commentId === openedSubcomments.commentId && 
+                    (!openedSubcomments.container || openedSubcomments.container.children().length < 1)) {
+                    openedSubcomments = null;
+                }
+
                 updateComments();
                 return;
             }
