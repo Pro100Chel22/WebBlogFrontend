@@ -285,6 +285,8 @@ function getTags (filters, qeuryParams) {
             return;
         }
 
+        let minTime;
+        let maxTime;
         Array.from(qeuryParams.params).forEach(param => {
             const elementId = filters.find(filter => filter.param === param.key)?.id;
             if (elementId) {
@@ -300,7 +302,25 @@ function getTags (filters, qeuryParams) {
                 }
                 else {
                     $(elementId).val(param.values);
+
+                    if (elementId === '#reading_time_from_input_id') {
+                        minTime = $(elementId).val();
+                    }
+                    if (elementId === '#reading_time_to_input_id') {
+                        maxTime = $(elementId).val();
+                    }
                 }
+            }
+            
+            if (minTime && maxTime && Number(minTime) > Number(maxTime)) {
+                $('#reading_time_from_input_id').val('');
+                $('#reading_time_to_input_id').val('');
+            }
+            if (minTime && (Number(minTime) < 0 || minTime.toString().includes('.'))) {
+                $('#reading_time_from_input_id').val('');
+            }
+            if (maxTime && (Number(maxTime) < 0 || maxTime.toString().includes('.'))) {
+                $('#reading_time_to_input_id').val('');
             }
         });
 

@@ -5,10 +5,12 @@ import { setLikeListener } from './shared/likeButtonListeners.js';
 import { userIsNotAuthorized } from './index.js';
 
 let tempComment;
+let tempCommentsNotFound;
 let openedSubcomments;
 
 async function init() {
     tempComment = await getTemplate('commentTemplate');
+    tempCommentsNotFound = await getTemplate('commentNotFoundTemplate');
     openedSubcomments = null;
 
     getPost();
@@ -96,10 +98,12 @@ async function insertPost (post) {
     }
 
     if (post.comments.length > 0) {
-        $('#zero_comment_id').remove();
         post.comments.forEach(comment => {
             insertComment($('#comments_container_id'), comment, post.id, userId, false);
         })
+    }
+    else {
+        $('#comments_container_id').append(tempCommentsNotFound.clone());
     }
 
     if (window.myApp.tokenVerificationResult) {
@@ -177,17 +181,23 @@ function insertComment (container, comment, postId, userId = null, isSubcomment 
 
     if (userId) {
         if (userId === comment.authorId) {
-            setEditButton(
-                cloned.find('.edit'), 
-                cloned.find('.delete'), 
-                cloned.find('#comment_content_id'), 
-                cloned.find('#edit_comment_id'), 
-                cloned.find('#edit_comment_input_id'),
-                cloned.find('#edit_button_id'),
-                cloned.find('#placholder_edit_id'),
-                cloned.find('#server_error_submess_id'), 
-                comment.id
-                ); 
+            if (!comment.deleteDate) {
+                setEditButton(
+                    cloned.find('.edit'), 
+                    cloned.find('.delete'), 
+                    cloned.find('#comment_content_id'), 
+                    cloned.find('#edit_comment_id'), 
+                    cloned.find('#edit_comment_input_id'),
+                    cloned.find('#edit_button_id'),
+                    cloned.find('#placholder_edit_id'),
+                    cloned.find('#server_error_submess_id'), 
+                    comment.id
+                    ); 
+            }
+            else {
+                cloned.find('.edit').remove();
+            }
+            
             setDeleteButton(cloned.find('.delete'), cloned.find('#server_error_delete_id'), comment.id); 
         }
         
@@ -422,6 +432,7 @@ function setOpenSubcommentsListener (element, container, commentId, postId, user
                     insertComment(container, comment, postId, userId);
                 })
 
+
                 openedSubcomments = { element, container, commentId };
             }
 
@@ -449,15 +460,20 @@ function updateComments () {
             if (data.status[0] === 200) {
                 $('#comments_container_id').empty();
 
-                data.body[0].comments.forEach(comment => {
-                    let commentObj = insertComment($('#comments_container_id'), comment, postId, userId, false);
-                    
-                    if (comment.id === openedSubcomments.commentId) {
-                        openedSubcomments.element = $(commentObj.find('.openSubcomment')[0]);
-                        openedSubcomments.container = $(commentObj.find('.subcommentContainer')[0]);
-                    }
-                }); 
-
+                if (data.body[0].comments.length > 0) {
+                    data.body[0].comments.forEach(comment => {
+                        let commentObj = insertComment($('#comments_container_id'), comment, postId, userId, false);
+                        
+                        if (comment.id === openedSubcomments.commentId) {
+                            openedSubcomments.element = $(commentObj.find('.openSubcomment')[0]);
+                            openedSubcomments.container = $(commentObj.find('.subcommentContainer')[0]);
+                        }
+                    }); 
+                }
+                else {
+                    $('#comments_container_id').append(tempCommentsNotFound.clone());
+                }
+                
                 $('#comments_count_id').text(data.body[0].commentsCount);
             }
 
@@ -484,9 +500,14 @@ function updateComments () {
             if (data.status === 200) {
                 $('#comments_container_id').empty();
 
-                data.body.comments.forEach(comment => {
-                    insertComment($('#comments_container_id'), comment, postId, userId, false);
-                })
+                if (data.body.comments.length > 0) {
+                    data.body.comments.forEach(comment => {
+                        insertComment($('#comments_container_id'), comment, postId, userId, false);
+                    })
+                }
+                else {
+                    $('#comments_container_id').append(tempCommentsNotFound.clone());
+                }
 
                 $('#comments_count_id').text(data.body.commentsCount);
 

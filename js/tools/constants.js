@@ -6,6 +6,8 @@ export const AUTHORS_PAGE = '/authors'
 export const SUBSCRIBER = 'Subscriber';
 export const ADMINISTRATOR = 'Administrator';
 
+export const INTERNAL_SERVER_ERROR = 'internalServerError.html';
+
 export const GAR_ADDRESS_LEVEL_ENUM = {
     Region: "Субъект РФ",
     AdministrativeArea: "Административный район",

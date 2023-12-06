@@ -21,7 +21,38 @@ function init() {
         { id: '#only_my_groups_checkbox_id', param: 'onlyMyCommunities' },
     ];
 
-   buildPostPage(filters, 'https://blog.kreosoft.space/api/post/');
+    let inputMin = $('#reading_time_from_input_id');
+    let inputMax = $('#reading_time_to_input_id');
+
+    inputMin.on('input', function () {
+        if (inputMin.val() < 0) {
+            inputMin.val(0);
+        }
+
+        if (inputMax.val() && inputMin.val() && inputMin.val() > inputMax.val()) {
+            inputMin.val(inputMax.val());
+        }
+
+        if (inputMin.val()) {
+            inputMin.val(Math.round(inputMin.val()));
+        }
+    });
+
+    inputMax.on('input', function () {
+        if (inputMax.val() < 0) {
+            inputMax.val(0);
+        }
+
+        if (inputMax.val() && inputMin.val() && inputMin.val() > inputMax.val()) {
+            inputMax.val(inputMin.val());
+        }
+        
+        if (inputMax.val()) {
+            inputMax.val(Math.round(inputMax.val()));
+        }
+    });
+
+    buildPostPage(filters, 'https://blog.kreosoft.space/api/post/');
 }
 
 saveInitFuncAndRun(init);

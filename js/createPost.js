@@ -1,6 +1,6 @@
-import { loadPageFromCurrentUrl, loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
+import { includeHTML, loadPageFromCurrentUrl, loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
-import { ADMINISTRATOR, GAR_ADDRESS_LEVEL_ENUM } from './tools/constants.js';
+import { ADMINISTRATOR, GAR_ADDRESS_LEVEL_ENUM, INTERNAL_SERVER_ERROR } from './tools/constants.js';
 import { userIsNotAuthorized } from './index.js';
 import { getTemplate, parseQeuryParams } from './tools/helpers.js';
 
@@ -26,6 +26,9 @@ function getGroupsAndTags () {
             userIsNotAuthorized();
             loadPageFromCurrentUrl();
             return;
+        }
+        else {
+            includeHTML(INTERNAL_SERVER_ERROR);
         }
     }
 
@@ -77,8 +80,8 @@ async function buildCreatPostPage (tags, groups) {
         if ($(this).val() < 0) {
             $(this).val(0);
         }
-        else if ($(this).val() > 120) {
-            $(this).val(120);
+        else if ($(this).val() > 600) {
+            $(this).val(600);
         }
     });
 
@@ -218,27 +221,35 @@ function creatNextAddressLevel(element, parentId, elementLevel = 0) {
     });
 
     const onSelect = (event, level) => {
-        let data = event.params.data;
+        let search = event.params.data;
 
         deleteElementAfter(level);
 
         if (level > 0) {
-            updateLable(elementsArr.at(-1).label, data.id !== '-1' ? [data.type] : []);
+            updateLable(elementsArr.at(-1).label, search.id !== '-1' ? [search.type] : []);
         }
 
-        if (data.id !== '-1' && data.type !== 'Building') { 
-            let searchElements = creatSearchElements(level + 1);  
+        if (search.id !== '-1' && search.type !== 'Building') { 
+            const getAddress = (data) => {
+                console.log("address get", data, search);
+        
+                if (data.status === 200 && data.body.length > 0) {
+                    let searchElements = creatSearchElements(level + 1);  
 
-            searchElements.searchContainer.insertAfter($(elementsArr.at(-1).levelId));
+                    searchElements.searchContainer.insertAfter($(elementsArr.at(-1).levelId));
 
-            elementsArr.push({ 
-                container: searchElements.searchContainer, 
-                input: searchElements.select, 
-                label: searchElements.selectLabel, 
-                levelId: `#${level + 1}_level_id` 
-            });
+                    elementsArr.push({ 
+                        container: searchElements.searchContainer, 
+                        input: searchElements.select, 
+                        label: searchElements.selectLabel, 
+                        levelId: `#${level + 1}_level_id` 
+                    });
 
-            creatNextAddressLevel(searchElements.select, data.id.split('_')[0], level + 1);
+                    creatNextAddressLevel(searchElements.select, search.id.split('_')[0], level + 1);
+                }
+            }
+            
+            request('https://blog.kreosoft.space/api/address/search?parentObjectId=' +  search.id.split('_')[0], 'GET', getAddress);
         }
     }
 
@@ -246,8 +257,6 @@ function creatNextAddressLevel(element, parentId, elementLevel = 0) {
 }
 
 function updateLable (label, levelTypes) {
-    console.log(label, levelTypes);
-
     let labelText = ''; 
     levelTypes.forEach((type, index) => {
         labelText += (index > 0 ? ', ' : '') + GAR_ADDRESS_LEVEL_ENUM[type];
@@ -263,8 +272,6 @@ function creatSearchElements (level) {
     let select = searchContainer.children().last();
 
     searchContainer.prop('id', `${level}_level_id`);
-
-    console.log(selectLabel, select, searchContainer);
 
     return { selectLabel, select, searchContainer };
 }

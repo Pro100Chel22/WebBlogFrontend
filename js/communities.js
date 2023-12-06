@@ -1,16 +1,18 @@
-import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from './tools/loadMainContent.js';
+import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun, includeHTML } from './tools/loadMainContent.js';
 import { userIsAuthorized, userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
-import { ADMINISTRATOR, SUBSCRIBER } from './tools/constants.js';
+import { ADMINISTRATOR, INTERNAL_SERVER_ERROR, SUBSCRIBER } from './tools/constants.js';
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
 import { getTemplate } from './tools/helpers.js';
 
 let tempCommunity;
+let tempCommunityNotFound;
 
 async function init() {
     tempCommunity = await getTemplate('communityTemplate');
-
-    getCommunities();
+    tempCommunityNotFound = await getTemplate('communityNotFound');
+    
+    getCommunities(); 
 }
 
 function getCommunities () {
@@ -29,6 +31,9 @@ function getCommunities () {
                 loadPageFromCurrentUrl();
                 return;
             }
+            else {
+                includeHTML(INTERNAL_SERVER_ERROR);
+            }
         }
     
         multipleRequest(
@@ -46,7 +51,7 @@ function getCommunities () {
                 insertCommunities(container, data.body);
             }
             else {
-                container.text("Произошла ошибка"); ////////////////////////////
+                includeHTML(INTERNAL_SERVER_ERROR);
             }
         }
     
@@ -55,6 +60,10 @@ function getCommunities () {
 }
 
 function insertCommunities (container, communities, subscripbes = null) {
+    if (communities.length <= 0) {
+        tempCommunityNotFound.appendTo(container);
+    }
+
     Array.from(communities).forEach(community => {
         let tempCommunityCloned = tempCommunity.clone();
 
@@ -93,15 +102,6 @@ function insertCommunities (container, communities, subscripbes = null) {
 
         tempCommunityCloned.appendTo(container);
     });
-}
-
-function getTemp (element) {
-    let cloned = element.clone();
-    cloned.removeClass('d-none');
-    cloned.removeAttr('id');
-    element.remove();
-
-    return cloned;
 }
 
 saveInitFuncAndRun(init);

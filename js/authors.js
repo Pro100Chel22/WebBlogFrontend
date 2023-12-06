@@ -18,8 +18,8 @@ function getAuthors () {
             let сopyAuthors = data.body.slice();
 
             сopyAuthors.sort((a, b) => {
-                if (a.likes !== b.likes) return b.likes - a.likes;
-                else return b.posts - a.posts;
+                if (a.posts !== b.posts) return b.posts - a.posts;
+                else return b.likes - a.likes;
             }); 
             сopyAuthors.forEach((author, index) => {
                 author.place = index + 1; 
@@ -41,7 +41,7 @@ function insertAuthor (author, drawBorder, place) {
     let cloned = tempAuthor.clone();
 
     insertText(cloned, '#author_name_id', author.fullName);
-    insertText(cloned, '#birth_date_id', changeDateFormat(new Date(author.birthDate), '.')); 
+    insertText(cloned, '#birth_date_id', author.birthDate ? changeDateFormat(new Date(author.birthDate), '.') : 'не указана'); 
     insertText(cloned, '#creat_time_id', changeDateFormat(new Date(author.created), '.')); 
     insertText(cloned, '#posts_count_id', author.posts); 
     insertText(cloned, '#likes_count_id', author.likes); 
@@ -57,11 +57,11 @@ function insertAuthor (author, drawBorder, place) {
     setTopImage(cloned, place);
 
     if (drawBorder) {
-        cloned.addClass('border-bottom');
+        cloned.children().first().addClass('border-bottom');
     }
 
-    setLink(cloned.find('#author_link_id'), '/?author=' + author.fullName);
-    cloned.find('#author_link_id').removeAttr('id');
+    setLink(cloned, '/?author=' + author.fullName);
+    cloned.removeAttr('id'); 
 
     $('#authors_container_id').append(cloned);
 }
