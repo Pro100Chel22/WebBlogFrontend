@@ -1,10 +1,9 @@
-import { loadPageWithoutReload, loadPageFromCurrentUrl,  saveInitFuncAndRun, includeHTML } from './tools/loadMainContent.js';
-import { userIsNotAuthorized } from './index.js';
+import { loadPageWithoutReload, saveInitFuncAndRun, includeHTML } from './tools/loadMainContent.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
-import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate } from './tools/helpers.js';  
+import { getTemplate } from './tools/helpers.js';  
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
 import { ADMINISTRATOR, CREAT_POST_PAGE, INTERNAL_SERVER_ERROR, NOT_FOUND_ERROR, SUBSCRIBER } from './tools/constants.js';
-import { buildPostPage, getTags, insertText } from './shared/posts.js';
+import { buildPostPage, insertText } from './shared/posts.js';
 
 let tempAdminInfo;
 
@@ -88,6 +87,13 @@ function setCommunityInfo (communityInfo, isAuth = false, role = null) {
     $('#community_name_id').text(communityInfo.name);
     $('#subscribers_count_id').text(communityInfo.subscribersCount);
     $(communityInfo.isClosed ? '#community_close_id' : '#community_open_id').removeClass('d-none');
+
+    if (communityInfo.description) {
+        $('#description_text_id').text(communityInfo.description);
+    }
+    else {
+        $('#description_conrainer_id').remove();
+    }
 
     let adminsContainer = $('#admins_container_id');
     Array.from(communityInfo.administrators).forEach((administrator, index) => {

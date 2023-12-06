@@ -1,5 +1,5 @@
 import { AUTHORS_PAGE } from './tools/constants.js';
-import { loadPageFromCurrentUrl, loadPageWithoutReload } from './tools/loadMainContent.js';
+import { loadPageFromCurrentUrl } from './tools/loadMainContent.js';
 import { request } from './tools/request.js';
 import { setLink } from './tools/helpers.js'
 

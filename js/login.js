@@ -6,14 +6,8 @@ import { disableForm, undisableForm } from './tools/helpers.js';
 function init() {
     $('.dont').on('click', function(event) {
         event.preventDefault();
-        console.log('dont')
     })
-
     $('#registration_page_button_id').click(() => loadPageWithoutReload("/registration"));
-
-    // $('#registration_page_button_id').click(function(){
-    //     $('#registration_page_button_id').collapse('toggle');
-    // });
 
     $('.needs-validation').on('submit', function(event) {
         event.preventDefault();

@@ -1,4 +1,4 @@
-import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun } from "../tools/loadMainContent.js";
+import { loadPageFromCurrentUrl } from "../tools/loadMainContent.js";
 import { userIsNotAuthorized } from "../index.js";
 import { request } from "../tools/request.js";
 import { changeDateTimeFormat, parseQeuryParams, buildNumerationPage, getTemplate, setLink } from '../tools/helpers.js';  
@@ -142,6 +142,11 @@ function insertPost (tempPost, postsContainer, post) {
     if (post.image !== null) {
         let image = cloned.find('#image_id');
         image.attr('src', post.image);
+
+        image.on('error', function() {
+            console.error('Ошибка загрузки фотографии поста', post.title);
+            $(this).remove();
+        });
 
         cloned.find('#image_container_id').removeAttr('id');
     }

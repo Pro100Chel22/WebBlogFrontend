@@ -1,7 +1,7 @@
 import { loadPageWithoutReload, loadPageFromCurrentUrl, saveInitFuncAndRun, includeHTML } from './tools/loadMainContent.js';
-import { userIsAuthorized, userIsNotAuthorized } from './index.js';
+import { userIsNotAuthorized } from './index.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
-import { ADMINISTRATOR, INTERNAL_SERVER_ERROR, SUBSCRIBER } from './tools/constants.js';
+import { INTERNAL_SERVER_ERROR, SUBSCRIBER } from './tools/constants.js';
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
 import { getTemplate } from './tools/helpers.js';
 

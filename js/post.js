@@ -52,6 +52,11 @@ async function insertPost (post) {
 
     if (post.image !== null) {
         $('#image_id').attr('src', post.image);
+
+        $('#image_id').on('error', function() {
+            console.error('Ошибка загрузки фотографии поста');
+            $(this).remove();
+        });
     }
     else {
         $('#image_container_id').remove();
