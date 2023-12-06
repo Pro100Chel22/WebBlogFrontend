@@ -20,7 +20,7 @@ function getCommunities () {
 
     if (window.myApp.tokenVerificationResult) {
         const loadCommunities = (data) => {
-            console.log("communities get auth", data);
+            window.myApp.showLogs ? console.log("communities get auth", data) : '';
     
             container.empty();
             if (data.status[0] === 200 && data.status[1] === 200) {
@@ -44,7 +44,7 @@ function getCommunities () {
     }
     else {
         const loadCommunities = (data) => {
-            console.log("communities get", data);
+            window.myApp.showLogs ? console.log("communities get", data) : '';
             
             container.empty();
             if (data.status === 200) {

@@ -25,7 +25,8 @@ function init() {
 
 function registrationUser () {
     const registration = (data) => {
-        console.log("registration post", data);
+        window.myApp.showLogs ? console.log("registration post", data) : '';
+        
         if (data.status === 200) {
             localStorage.setItem('JWTToken', data.body.token);
             userIsAuthorized($('#email_input_id').val());

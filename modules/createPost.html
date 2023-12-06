@@ -30,14 +30,23 @@
                         </select>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
+                    <div class="col-12 d-none" id="image_container_id">
+                        <img src="" class="postImageSize rounded border img-fluid mx-auto d-block" id="image_id">
+                    </div>
                     <div class="col-12">
                         <label for="img_link_input_id" class="form-label">Ссылка на картинку</label>
                         <input type="text" class="form-control d-none" id="img_link_input_id">
                         <div class="invalid-feedback" id="email_incorrect_id">
                             Поле изображения не является допустимым полным URL-адресом http, https или ftp.
                         </div>
+                        <div class="invalid-feedback d-block d-none" id="image_error_mess_id">
+                            Фотография не загружается.
+                        </div>
                         <span class="form-control placeholderColor inputPlaceholder placeholder needs-off"></span>
                     </div>
+                    <!-- <div class="col-12 d-flex justify-content-end">
+                        <button type="button" class="btn btn-primary" id="check_image_button_id">Проверить картинку</button>
+                    </div> -->
                     <div class="col-12">
                         <label for="text_input_id" class="form-label">Текст<span class="text-danger ms-1">*</span></label>
                         <textarea class="form-control d-none" id="text_input_id" rows="8" required></textarea>

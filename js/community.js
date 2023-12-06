@@ -22,7 +22,7 @@ function loadCommunity (filters) {
 
     if (window.myApp.tokenVerificationResult) {
         const loadCommunityInfo = (data) => {
-            console.log("community get", data);
+            window.myApp.showLogs ? console.log("community get", data) : '';
     
             if (data.status[0] === 200) {
                 setCommunityInfo(data.body[0], true, data.body[1]);
@@ -47,7 +47,7 @@ function loadCommunity (filters) {
     }
     else {
         const loadCommunityInfo = (data) => {
-            console.log('community get', data);
+            window.myApp.showLogs ? console.log('community get', data) : '';
     
             if (data.status === 200) {
                 setCommunityInfo(data.body);

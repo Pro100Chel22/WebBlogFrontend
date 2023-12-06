@@ -26,7 +26,7 @@ function setLikeListener (element, likesCount, hasLike, postId) {
                 changeLikeOnClient(this, false, likesCount, hasLike);
     
                 const deleteLike = (data) => {
-                    console.log('like delete', data);
+                    window.myApp.showLogs ? console.log('like delete', data) : '';
                     setResulteChangeLike(this, data, false); 
                     $(this).removeAttr('locked');
                 };
@@ -37,7 +37,7 @@ function setLikeListener (element, likesCount, hasLike, postId) {
                 changeLikeOnClient(this, true, likesCount, hasLike);
     
                 const setLike = (data) => {
-                    console.log('like set', data);
+                    window.myApp.showLogs ? console.log('like set', data) : '';
                     setResulteChangeLike(this, data, true);
                     $(this).removeAttr('locked');
                 };

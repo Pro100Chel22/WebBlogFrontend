@@ -93,7 +93,7 @@ function updatePost (params) {
 
 function getPosts (search) {
     const loadPosts = (data) => {
-        console.log("posts get", data);
+        window.myApp.showLogs ? console.log("posts get", data) : '';
 
         resetPageButtons();
 
@@ -144,7 +144,7 @@ function insertPost (tempPost, postsContainer, post) {
         image.attr('src', post.image);
 
         image.on('error', function() {
-            console.error('Ошибка загрузки фотографии поста', post.title);
+            window.myApp.showLogs ? console.error('Ошибка загрузки фотографии поста', post.title) : '';
             $(this).remove();
         });
 
@@ -274,7 +274,7 @@ function changePage (page) {
 
 function getTags (filters, qeuryParams) {
     const loadTags = (data) => {
-        console.log("tags get", data);
+        window.myApp.showLogs ? console.log("tags get", data) : '';
 
         if (data.status === 200) {
             Array.from(data.body).forEach(tag => {

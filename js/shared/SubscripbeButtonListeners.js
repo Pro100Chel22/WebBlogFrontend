@@ -20,7 +20,7 @@ function changeSubscripbe (subscripbeButton, unsubscripbeButton, communityId, is
     let token = localStorage.getItem('JWTToken');
 
     const changeSub = (data, isSet) => {
-        console.log("Subscripbe change, isSet:", isSet, data);
+        window.myApp.showLogs ? console.log("Subscripbe change, isSet:", isSet, data) : '';
         
         if (data.status === 200) {
             swapSubscripbeButton(subscripbeButton, unsubscripbeButton, isSet);

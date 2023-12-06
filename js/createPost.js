@@ -17,7 +17,7 @@ async function init() {
 
 function getGroupsAndTags () {
     const loadGroupsAndTags = (data) => {
-        console.log("communities and tags get", data);
+        window.myApp.showLogs ? console.log("communities and tags get", data) : '';
 
         if (data.status[0] === 200 && data.status[1] === 200) {
             buildCreatPostPage (data.body[0], data.body[1])
@@ -63,7 +63,7 @@ async function buildCreatPostPage (tags, groups) {
     await groups.forEach(async group => {
         if (group.role === ADMINISTRATOR) {
             let loadCommunityName = (data) => {
-                console.log('community info get', data);
+                window.myApp.showLogs ? console.log('community info get', data) : '';
 
                 $('#community_input_id').append($('<option>', {
                     value: data.body.id,
@@ -85,7 +85,7 @@ async function buildCreatPostPage (tags, groups) {
         }
     });
 
-    $('.needs-off').addClass('d-none');;
+    $('.needs-off').addClass('d-none');
     inputsId.forEach(inputId => {
         $(inputId.id).removeClass('d-none');
     });
@@ -94,6 +94,29 @@ async function buildCreatPostPage (tags, groups) {
     setCreatPostListener(inputsId);
 
     creatNextAddressLevel($('#search_level_input_id'), '0');
+
+    $('#image_id').on('error', function() {
+        $('#image_error_mess_id').removeClass('d-none');
+        $('#image_container_id').addClass('d-none');
+    }).on('load', function () {
+        $('#image_container_id').removeClass('d-none');
+        $('#image_error_mess_id').addClass('d-none');
+    });
+
+    $('#img_link_input_id').on('focus', function () {
+        $('#image_error_mess_id').addClass('d-none');
+    });
+
+    $('#img_link_input_id').on('input', function () {
+        if ($('#img_link_input_id').val().length > 0) {
+            $('#image_id').attr('src', $('#img_link_input_id').val());
+        }
+        else {
+            $('#image_id').removeAttr('src');
+            $('#image_error_mess_id').addClass('d-none');
+            $('#image_container_id').addClass('d-none');
+        }
+    });
 }
 
 function setCreatPostListener (inputsId) {
@@ -124,8 +147,6 @@ function setCreatPostListener (inputsId) {
             }
         })
 
-        console.log(body);
-
         if (!checkData(body)) {
             return;
         }
@@ -133,7 +154,7 @@ function setCreatPostListener (inputsId) {
         let communityId = $('#community_input_id').val() !== '-1' ? $('#community_input_id').val() : '-1';
 
         const createPost = (data) => {
-            console.log("post create post", communityId, data);
+            window.myApp.showLogs ? console.log("post create post", communityId, data) : '';
 
             if (data.status === 200) {
                 loadPageWithoutReload('/post/' + data.body);
@@ -198,7 +219,7 @@ function creatNextAddressLevel(element, parentId, elementLevel = 0) {
             dataType: 'json',
             delay: 500,
             processResults: function(data) {
-                console.log('ajax', data);
+                window.myApp.showLogs ? console.log('ajax', data) : '';
 
                 const formattedResults = data.map(item => {
                     return ({
@@ -231,7 +252,7 @@ function creatNextAddressLevel(element, parentId, elementLevel = 0) {
 
         if (search.id !== '-1' && search.type !== 'Building') { 
             const getAddress = (data) => {
-                console.log("address get", data, search);
+                window.myApp.showLogs ? console.log("address get", data, search) : '';
         
                 if (data.status === 200 && data.body.length > 0) {
                     let searchElements = creatSearchElements(level + 1);  

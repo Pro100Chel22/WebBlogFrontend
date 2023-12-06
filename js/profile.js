@@ -27,7 +27,8 @@ function init() {
 
 function putDataToServer () {
     const saveProfile = (data) => {
-        console.log("profile put", data);
+        window.myApp.showLogs ? console.log("profile put", data) : '';
+
         if (data.status === 200) {
             userIsAuthorized($('#email_input_id').val());
         }
@@ -66,7 +67,8 @@ function putDataToServer () {
 function putDataToForm (mask, formsId) {
     const userToken = localStorage.getItem('JWTToken');
     const loadProfile = (data) => {
-        console.log("profile get", data);
+        window.myApp.showLogs ? console.log("profile get", data) : '';
+        
         if (data.status === 200) {
             let userModel = data.body;
             $('#email_input_id').val(userModel.email);

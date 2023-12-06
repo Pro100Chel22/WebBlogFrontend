@@ -22,7 +22,7 @@ function init() {
 
 function loginUser () {
     const login = (data) => {
-        console.log("login post", data);
+        window.myApp.showLogs ? console.log("login post", data) : '';
 
         if (data.status === 200) {
             localStorage.setItem('JWTToken', data.body.token);

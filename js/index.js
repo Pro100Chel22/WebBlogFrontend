@@ -7,14 +7,14 @@ export { userIsAuthorized, userIsNotAuthorized };
 
 window.myApp = window.myApp || {};
 window.myApp.tokenVerificationResult = window.myApp.tokenVerificationResult || false;
-
+// window.myApp.showLogs = true;
 // loadPageFromCurrentUrl();
 
 $(function() {
     const userToken = localStorage.getItem('JWTToken');
     if (userToken !== null) {
         const loadEmail = (data) => {
-            console.log("index profile get", data);
+            window.myApp.showLogs ? console.log("index profile get", data) : '';
             if (data.status === 200) {
                 userIsAuthorized(data.body.email);
             }

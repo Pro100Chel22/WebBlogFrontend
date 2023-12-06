@@ -20,7 +20,7 @@ function getPost () {
     let postId = window.location.pathname.split('/').pop();
 
     const loadPost = (data) => {
-        console.log("post get", data);
+        window.myApp.showLogs ? console.log("post get", data) : '';
 
         if (data.status === 200) {
             insertPost(data.body);
@@ -54,7 +54,7 @@ async function insertPost (post) {
         $('#image_id').attr('src', post.image);
 
         $('#image_id').on('error', function() {
-            console.error('Ошибка загрузки фотографии поста');
+            window.myApp.showLogs ? console.error('Ошибка загрузки фотографии поста') : '';
             $(this).remove();
         });
     }
@@ -71,7 +71,7 @@ async function insertPost (post) {
 
     if (post.addressId) {
         const loadAddress = (data) => {
-            console.log("address get", data);
+            window.myApp.showLogs ? console.log("address get", data) : '';
     
             let str = "";
             data.body.forEach(addr => {
@@ -145,7 +145,7 @@ function setCommentListener (postId) {
         }
 
         const postComment = (data) => {
-            console.log("comment post", data);
+            window.myApp.showLogs ? console.log("comment post", data) : '';
 
             if (data.status === 200) {
                 $('#comment_input_id').val('');
@@ -282,7 +282,7 @@ function setEditButton (editElement, deleteElement, content, edit, editInput, ed
         editInput.prop('disabled', true);
 
         let editComment = (data) => {
-            console.log('comment edit', data);
+            window.myApp.showLogs ? console.log('comment edit', data) : '';
 
             if (data.status === 200) {
                 updateComments();
@@ -325,7 +325,7 @@ function setDeleteButton (element, serverError, commentId) {
         element.attr('locked', true);
 
         let deleteComment = (data) => {
-            console.log('comment delete', data);
+            window.myApp.showLogs ? console.log('comment delete', data) : '';
             
             if (data.status === 200) {
                 if (openedSubcomments && commentId === openedSubcomments.commentId && 
@@ -378,7 +378,7 @@ function setAnswerButton (button, container, input, postButton, placeholderButto
         placeholderButton.removeClass('d-none');
 
         const postComment = (data) => {
-            console.log("comment post", data);
+            window.myApp.showLogs ? console.log("comment post", data) : '';
 
             if (data.status === 200) {
                 if (!isSubcomment) {
@@ -432,7 +432,7 @@ function setOpenSubcommentsListener (element, container, commentId, postId, user
         element.attr('off', true);
 
         const getSubcomments = (data) => {
-            console.log("subcomments get", data);
+            window.myApp.showLogs ? console.log("subcomments get", data) : '';
 
             if (data.status === 200) {
                 $(element).addClass('d-none');
@@ -459,7 +459,7 @@ function updateComments () {
 
     if (openedSubcomments) {
         const loadComments = (data) => {
-            console.log("subcomment get", data);
+            window.myApp.showLogs ? console.log("subcomment get", data) : '';
 
             if (data.status[0] === 401) {
                 userIsNotAuthorized();
@@ -505,7 +505,7 @@ function updateComments () {
     }
     else {
         const loadComments = (data) => {
-            console.log("comment get", data);
+            window.myApp.showLogs ? console.log("comment get", data) : '';
     
             if (data.status === 200) {
                 $('#comments_container_id').empty();

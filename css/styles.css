@@ -107,6 +107,14 @@ main {
     width: 45%;
 }
 
+.textWrap {
+    word-wrap: break-word;
+}
+
+.spanSize {
+    width: 100px;
+}
+
 @media (max-width: 768px) {
     .authorsImageContainer {
         width: 90px;

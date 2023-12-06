@@ -12,7 +12,7 @@ async function init() {
 
 function getAuthors () {
     const loadAuthors = (data) => {
-        console.log("authors get", data);
+        window.myApp.showLogs ? console.log("authors get", data) : '';
 
         if (data.status === 200) {
             let сopyAuthors = data.body.slice();
