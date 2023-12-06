@@ -1,6 +1,6 @@
 import { loadPageWithoutReload, saveInitFuncAndRun, includeHTML } from './tools/loadMainContent.js';
 import { RequestInfo, request, multipleRequest } from './tools/request.js';
-import { getTemplate } from './tools/helpers.js';  
+import { getTemplate, setLink } from './tools/helpers.js';  
 import { setSubscripbeListeners } from './shared/SubscripbeButtonListeners.js';
 import { ADMINISTRATOR, CREAT_POST_PAGE, INTERNAL_SERVER_ERROR, NOT_FOUND_ERROR, SUBSCRIBER } from './tools/constants.js';
 import { buildPostPage, insertText } from './shared/posts.js';
@@ -127,9 +127,7 @@ function setCommunityInfo (communityInfo, isAuth = false, role = null) {
             }
             else if (role === ADMINISTRATOR) {
                 writePostButton.removeClass('d-none');
-                writePostButton.on('click', () => {
-                    loadPageWithoutReload(CREAT_POST_PAGE + `?communityId=${communityInfo.id}`)
-                });
+                setLink(writePostButton, CREAT_POST_PAGE + `?communityId=${communityInfo.id}`);
             }
         }
 

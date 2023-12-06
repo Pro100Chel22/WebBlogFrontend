@@ -1,6 +1,7 @@
 import { loadPageWithoutReload, saveInitFuncAndRun } from './tools/loadMainContent.js';
 import { buildPostPage } from './shared/posts.js';
 import { CREAT_POST_PAGE } from './tools/constants.js';
+import { setLink } from './tools/helpers.js';
 
 function init() {
     if (window.myApp.tokenVerificationResult) {
@@ -10,7 +11,7 @@ function init() {
         parent.addClass('mb-xxl-3');
     }
 
-    $('#write_post_button_id').on('click', () => loadPageWithoutReload(CREAT_POST_PAGE))
+    setLink($('#write_post_button_id'), CREAT_POST_PAGE);
 
     const filters = [
         { id: '#author_input_id', param: 'author' },
