@@ -1,0 +1,77 @@
+<div class="container d-flex align-items-center justify-content-center h-100 maxWidth500">
+    <div class="shadow-lg rounded-3 p-3 my-3">
+        <form class="row needs-validation" id="registration_form_id">
+            <div class="mb-2 col-md-12">
+                <h2>Регистрация</h2>
+            </div>
+            <div class="mb-2 col-md-12">
+                <label for="name_input_id" class="form-label">ФИО<span class="text-danger ms-1">*</span></label>
+                <input type="text" pattern="^[\sа-яА-Яa-zA-Z0-9]{3,}$" class="form-control" placeholder="Иванов Иван Иванович" id="name_input_id" required>
+                <div class="invalid-feedback">
+                    Имя должно иметь длину не менее 3-х символов и может состоять из цифр и русских или английских букв.
+                </div>
+            </div>
+            <div class="mb-2 col-md-12">
+                <label for="birthd_input_id" class="form-label">Дата рождения</label>
+                <input type="date" class="form-control" id="birthd_input_id">
+                <div class="invalid-feedback" id="birthd_incorrect_id">
+                    Некорректная дата рожденя.
+                </div>
+                <div class="invalid-feedback d-none" id="birthd_nonexistent_id">
+                    Дата рождения не может быть позже, чем текущий день.
+                </div>
+                <div class="valid-feedback">
+                    Дату рождения указывать необязательно.
+                </div>
+            </div>
+            <div class="mb-2 col-md-12">
+                <label for="phone_input_id" class="form-label">Телефон</label>
+                <input type="tel" id="phone_input_id" pattern="^\+7 \(\d{3}\) \d{3}-\d{2}-\d{2}$" class="form-control" placeholder="+7 (xxx) xxx-xx-xx">
+                <div class="invalid-feedback">
+                    Некорректный номер телфона.
+                </div>
+                <div class="valid-feedback">
+                    Номер телефона указывать необязательно.
+                </div>
+            </div>
+            <div class="mb-2 col-md-12">
+                <label for="gender_input_id" class="form-label">Пол<span class="text-danger ms-1">*</span></label>
+                <select id="gender_input_id" class="form-select" required>
+                    <option value="Male">Мужской</option>
+                    <option value="Female">Женский</option>
+                </select>
+            </div>
+            <div class="mb-2 col-md-12 ">
+                <label for="email_input_id" class="form-label">Email<span class="text-danger ms-1">*</span></label>
+                <input type="email" class="form-control" id="email_input_id" aria-describedby="emailHelp" required>
+                <div id="emailHelp" class="form-text">Email будет использоваться для входа в систему</div>
+                <div class="invalid-feedback" id="email_incorrect_id">
+                    Некорректный адрес электронной почты.
+                </div>
+                <div class="invalid-feedback d-none" id="email_exist_id">
+                    Данный адрес электронной почты уже использоваться.
+                </div>
+            </div>
+            <div class="mb-2 col-md-12">
+                <label for="password_input_id" class="form-label">Пароль<span class="text-danger ms-1">*</span></label>
+                <input type="password" pattern="^(?=.*\d).{6,}$" class="form-control" autocomplete="on" id="password_input_id" required>
+                <div class="invalid-feedback">
+                    Пароль должен содержать не менее 6-х символов и хотя бы одну цифру.
+                </div>
+            </div>
+            <div class="d-grid gap-2 col-md-12">
+                <button class="btn btn-primary" type="submit" id="registration_buttom_id">Регистрация</button>
+                <button class="btn btn-primary d-none" type="button" id="placholder_buttom_id">
+                    <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                    <span role="status">Отправка формы</span>
+                </button>
+            </div>
+            <div class="mb-2 col-md-12 d-none" id="server_error_mess_id">
+                <div class="invalid-feedback d-block">
+                    При отправке формы произошла ошибка, повторите попытку позже.
+                </div>
+            </div>
+          </form>
+    </div>
+</div>
+<script type="module" src="/js/registration.js"></script>

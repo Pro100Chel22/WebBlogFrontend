@@ -1,0 +1,153 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+footer {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+.body {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.paginationFooter {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.main {
+    flex: 1 0 auto;
+}
+
+.maxWidth500 {
+    max-width: 500px;
+}
+
+.customCursor {
+    cursor: pointer;
+}
+
+.navbarPlaceholder {
+    width: 150px;
+}
+
+.placeholderColor {
+    color: rgb(167, 167, 167);
+}
+
+.inputPlaceholder {
+    height: 38px;
+}
+
+.rightButton {
+    text-align: right;
+}
+
+.postImageSize {
+    max-height: 350px;
+}
+
+.postText {
+    font-size: 1em;
+    white-space: pre-wrap;
+}
+
+.postLinkText {
+    color: blue; 
+    cursor: pointer;
+}
+
+.sizePageSelector {
+    max-width: 205px;
+}
+
+@media (min-width: 768px) {
+    .custom-text-nowrap {
+        white-space: nowrap;
+    }
+}
+
+.communityRef {
+    text-decoration: none;
+    color: inherit;
+}
+
+.adminImage {
+    width: 60px; 
+    height: 60px;
+}
+
+.authorsImageContainer {
+    width: 80px;
+    height: 80px;
+    padding: .5rem!important;
+}
+
+.authorsImage {
+    width: 75%;
+}
+
+.topImage {
+    width: 45%;
+}
+
+.textWrap {
+    word-wrap: break-word;
+}
+
+.spanSize {
+    width: 100px;
+}
+
+@media (max-width: 768px) {
+    .authorsImageContainer {
+        width: 90px;
+        height: 90px;
+        padding: .5rem!important;
+    }
+}
+
+@media (max-width: 450px) {
+    .custom-col {
+        flex-grow: initial;
+        flex-shrink: 1; 
+        flex-basis: auto; 
+        
+    }
+
+    .contantCenter {
+        justify-content: center!important;
+        text-align: center;
+    }
+
+    .authorsImageContainer {
+        width: 100vw;
+        height: 85vw;
+        align-items: end!important;
+        justify-content: center!important;
+    }
+
+    .authorsImage {
+        width: 80%;
+    }
+
+    .topImage {
+        width: 35%;
+    }
+}

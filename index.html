@@ -3,11 +3,61 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Bootstrap demo</title>
+    <title>Blog №415</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
-    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
   </head>
   <body>
+    <header>
+        <nav class="navbar navbar-expand-md bs-body-color shadow-sm">
+            <div class="container-fluid mx-md-3 mx-lg-5">
+                <a class="navbar-brand customCursor" id="logo_button_id">Блог №415</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Переключатель навигации">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarToggler">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link active customCursor" id="main_page_button_id">Главная</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active customCursor" id="author_page_button_id">Авторы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active customCursor" id="community_page_button_id">Группы</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav mt-1 mt-md-0">
+                        <li class="nav-item placeholder-glow navbarPlaceholder placeholderColor" id="placeholder_id">
+                            <span class="placeholder rounded-1 col-12"></span>
+                        </li>
+                        <li class="nav-item d-none" id="placeholder_login_id">
+                            <a class="nav-link active customCursor" id="login_page_button_id">Вход</a>
+                        </li>
+                        <li class="nav-item dropdown d-none" id="placeholder_user_email_id">
+                            <a class="nav-link active dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false" id="user_email_id">
+                              example@email.com
+                            </a>
+                            <ul class="dropdown-menu">
+                              <li><a class="dropdown-item" id="profile_page_button_id">Профиль</a></li>
+                              <li><a class="dropdown-item" id="logout_button_id">Выйти</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <main id="main_container"></main>
+    <footer class="footer py-3 bg-light border-top">
+        <div class="container">
+            <span class="text-muted">© 2023 - Блог №415</span>
+        </div>
+    </footer>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script type="module" src="/js/index.js"></script>
   </body>
 </html>
