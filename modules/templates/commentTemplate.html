@@ -1,0 +1,58 @@
+<div class="mb-3" id="comment_templ_id">
+    <div class="mb-1">
+        <span id="comment_author_id"></span>
+        <span class="d-none edit">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="orange" class="bi bi-pencil-fill" viewBox="0 0 16 16">
+                <path d="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"/>
+            </svg>
+        </span>
+        <span class="d-none delete">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="red" class="bi bi-trash-fill" viewBox="0 0 16 16">
+                <path d="M2.5 1a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1H3v9a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2V4h.5a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H10a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1zm3 4a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 .5-.5M8 5a.5.5 0 0 1 .5.5v7a.5.5 0 0 1-1 0v-7A.5.5 0 0 1 8 5m3 .5v7a.5.5 0 0 1-1 0v-7a.5.5 0 0 1 1 0"/>
+            </svg>
+        </span>
+    </div>
+    <div class="mb-1">
+        <span class="fs-5" id="comment_content_id"></span><span class="fs-6 ms-1 d-none" id="changed_id">(изменен)</span>
+        <form class="input-group d-none" id="edit_comment_id">
+            <input type="text" class="form-control" id="edit_comment_input_id">
+            <button class="btn btn-warning rounded-end" type="submit" id="edit_button_id">Редактировать</button>
+            <button class="btn btn-warning rounded-end d-none" type="button" id="placholder_edit_id" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Отправка</span>
+            </button>
+            <div class="invalid-feedback">
+                Комментарий должен быть не менее 1 символа и не больше 1000.
+            </div>
+        </form>
+    </div>
+    <div class="mb-1">
+        <span id="comment_time_id"></span><span class="postLinkText ms-1" id="comment_answer_id">Ответить</span>
+        <form class="input-group d-none" id="write_comment_id">
+            <input type="text" class="form-control" placeholder="Оставьте комментарий..." id="comment_answer_input_id">
+            <button class="btn btn-primary rounded-end" type="submit" id="buttom_post_comment_id">Отправить</button>
+            <button class="btn btn-primary d-none" type="button" id="placholder_id" disabled>
+                <span class="spinner-border spinner-border-sm" aria-hidden="true"></span>
+                <span role="status">Отправка</span>
+            </button>
+            <div class="invalid-feedback">
+                Комментарий должен быть не менее 1 символа и не больше 1000.
+            </div>
+        </form>  
+    </div>
+    <div class="mb-2 d-none" id="server_error_submess_id">
+        <div class="invalid-feedback d-block">
+            Во время сохранения комментария произошла ошибка, повторите попытку позже.
+        </div>
+    </div>
+    <div class="mb-2 d-none" id="server_error_delete_id">
+        <div class="invalid-feedback d-block">
+            Во время удаление комментария произошла ошибка, повторите попытку позже.
+        </div>
+    </div>
+    <div>
+        <span class="postLinkText openSubcomment" id="open_subcomments_id">Раскрыть ответы</span>
+        <div class="border-start border-5 border-info ps-3 subcommentContainer" id="suncomments_container_id">
+        </div>
+    </div>
+</div>
